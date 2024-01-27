@@ -16,7 +16,7 @@
     "sources": {
         "blocks": [
             {
-                "url": "https://raw.githubusercontent.com/elfin8er/Snapkg/development/repositories/default/packages/snapkg/blocks/Snapkg/blocks.xml",
+                "url": "https://raw.githubusercontent.com/Snapkg/snapkg/development/blocks/Snapkg/blocks.xml",
                 "provides": [
                     {
                         "spec": "📦Add repository from %'type' %'URL'",
