@@ -16,4 +16,4 @@ jobs:
 
     - name: Check issue labels
       run: |
-        echo success && echo github.event.inputs.issue.number
+        echo success && echo github.event.inputs.issue
