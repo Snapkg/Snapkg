@@ -12,4 +12,4 @@ jobs:
       - name: Run package request job
         uses: Snapkg/snapkg/.github/workflows/new_issue_label_pkg_req_new.yml@main
         with:
-          issue: ${{ github.event.issue }}
+          issue: ${{ github.event.issue.number }}
