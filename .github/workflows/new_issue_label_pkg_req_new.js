@@ -11,20 +11,8 @@ md.use(attrs);
 
 axios.get(url)
   .then(response => {
-    console.log(JSON.parse(response.data));
-    const markdown = JSON.parse(response.data).body
-    if (!markdown) {
-      console.error('No issue body found.');
-      process.exit(1);
-    }
+    console.log(response.data.body);
     
-    const tokens = md.parse(markdown, {});
-    
-    // Extract JavaScript/JSON code above "## Package manifest" header
-    const header = 'Package manifest';
-    const extractedCode = findCodeBlock(header, tokens);
-    
-    console.log(extractedCode);
   })
   .catch(error => {
     console.error('Error fetching GitHub issue:', error.message);
