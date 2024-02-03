@@ -2,7 +2,7 @@
 name: Package request
 about: Request a package be added to the official Snapkg repository
 title: "[pkg_request] my-package-name"
-labels: pkg_request
+labels: pkg_req_new
 assignees: ''
 
 ---
