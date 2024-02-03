@@ -11,7 +11,7 @@ md.use(attrs);
 
 axios.get(url)
   .then(response => {
-    console.log(response.data);
+    console.log(response.data.body);
     
   })
   .catch(error => {
