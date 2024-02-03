@@ -17,6 +17,7 @@ axios.get(url)
     }
     
     // Parse the Markdown content
+    console.log(markdown);
     const tokens = md.parse(markdown, {});
     
     // Extract JavaScript/JSON code above "## Package manifest" header
@@ -38,7 +39,6 @@ function findCodeBlock(header, tokens) {
     let codeBlock = '';
 
     for (const token of tokens) {
-      console.log(token);
         if (token.type === 'heading_open') {
             // Check if the heading is the specified header
             const headingText = tokens.find(t => t.type === 'inline' && t.content === header);
