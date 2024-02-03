@@ -20,4 +20,4 @@ jobs:
           node-version: 18
       - run: wget https://raw.githubusercontent.com/Snapkg/snapkg/main/.github/workflows/new_issue_label_pkg_req_new.js
       - run: npm install markdown-it markdown-it-attrs
-      - run: node new_issue_label_pkg_req_new.js "${{ inputs.issue_body }}"
+      - run: node new_issue_label_pkg_req_new.js ${{ inputs.issue_number }}
