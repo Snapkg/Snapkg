@@ -16,6 +16,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check issue labels
+    - name: Validate manifest JSON
       run: |
         echo success && echo "${{inputs.issue_body}}"
