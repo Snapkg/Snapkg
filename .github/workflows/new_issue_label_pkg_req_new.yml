@@ -15,9 +15,9 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: wget https://raw.githubusercontent.com/Snapkg/snapkg/main/.github/workflows/new_issue_label_pkg_req_new.js
       - run: npm install axios markdown-it markdown-it-attrs
-      - run: node new_issue_label_pkg_req_new.js ${{ inputs.issue_number }}
+      - run: node ./.github/workflows/new_issue_label_pkg_req_new.js ${{ inputs.issue_number }}
