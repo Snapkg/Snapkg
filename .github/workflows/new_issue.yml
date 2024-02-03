@@ -1,4 +1,6 @@
-# Runs when a new issue is opened
+name: Issue Labeled
+
+# Runs when an issue is labeled
 on:
   issues:
     types:
