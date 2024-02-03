@@ -30,6 +30,8 @@ axios.get(url)
   })
   .catch(error => {
     console.error('Error fetching GitHub issue:', error.message);
+    console.error(error);
+    process.exit(1);
   });
 
 // Function to find code block by header
