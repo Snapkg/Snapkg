@@ -1,0 +1,26 @@
+name: New Package Request
+
+# Runs when a new issue is opened
+on:
+  issues:
+    types:
+      - opened
+
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Check issue labels
+      run: |
+        labels=$(jq -r '.issue.labels[].name' $GITHUB_EVENT_PATH)
+        if [[ $labels == *"your-specific-tag"* ]]; then
+          echo "New issue with 'your-specific-tag' label created!"
+          # Add your custom script or commands here
+        else
+          echo "New issue without 'your-specific-tag' label. Skipping workflow."
+        fi
