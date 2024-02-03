@@ -18,7 +18,7 @@ jobs:
     - name: Check issue labels
       run: |
         labels=$(jq -r '.issue.labels[].name' $GITHUB_EVENT_PATH)
-        if [[ $labels == *"your-specific-tag"* ]]; then
+        if [[ $labels == *"pkg_req_new"* ]]; then
           echo "New issue with 'your-specific-tag' label created!"
           # Add your custom script or commands here
         else
