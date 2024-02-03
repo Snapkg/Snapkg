@@ -18,4 +18,4 @@ jobs:
     steps:
     - name: Validate manifest JSON
       run: |
-        md="${{ inputs.issue_body }}"
+        md='${{ inputs.issue_body }}'
