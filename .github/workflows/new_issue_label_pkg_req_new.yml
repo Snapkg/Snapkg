@@ -18,4 +18,4 @@ jobs:
     steps:
     - name: Check issue labels
       run: |
-        echo success && echo ${{inputs.issue_body}}
+        echo success && echo "${{inputs.issue_body}}"
