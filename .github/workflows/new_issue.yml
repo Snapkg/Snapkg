@@ -9,7 +9,7 @@ on:
 
 jobs:
   pkg_req_new:
-    if: github.event.label.name == "pkg_req_new"
+    if: github.event.label.name == 'pkg_req_new'
     uses: Snapkg/snapkg/.github/workflows/new_issue_label_pkg_req_new.yml@main
     with:
       issue: github.event.issue
