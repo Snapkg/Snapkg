@@ -5,6 +5,8 @@ const axios = require('axios');
 const issue_number = process.argv[2];
 const url = 'https://api.github.com/repos/Snapkg/snapkg/issues/' + issue_number;
 
+console.log(issue_number);
+
 md.use(attrs);
 
 axios.get(url)
