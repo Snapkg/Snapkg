@@ -43,7 +43,7 @@ function findCodeBlock(header, tokens) {
             console.log(token);
             console.log(token.attrs);
             // const headingLevel = token.attrs.find(attr => attr[0] === 'level')[1];
-            // const headingTextToken = tokens.find(t => t.type === 'inline' && t.level === headingLevel);
+            const headingTextToken = tokens.find(t => console.log(t));//t.type === 'inline' && t.level === headingLevel);
 
             // if (headingTextToken && headingTextToken.content.trim() === header) {
             //     isInCodeBlock = true;
