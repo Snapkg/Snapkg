@@ -5,6 +5,8 @@ on:
   workflow_call:
     inputs:
       issue:
+        type: string
+        required: true
 
 jobs:
   notify:
