@@ -2,8 +2,8 @@ const md = require('markdown-it')();
 const attrs = require('markdown-it-attrs');
 const axios = require('axios');
 
-const url = 'https://api.github.com/repos/Snapkg/snapkg/issues/' + issue_number;
 const issue_number = process.argv[2];
+const url = 'https://api.github.com/repos/Snapkg/snapkg/issues/' + issue_number;
 
 md.use(attrs);
 
