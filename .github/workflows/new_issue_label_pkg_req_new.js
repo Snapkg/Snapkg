@@ -1,4 +1,5 @@
-const md = require('markdown-it')();
+const markdownit = require('markdown-it')
+const md markdownit();
 const attrs = require('markdown-it-attrs');
 const axios = require('axios');
 
