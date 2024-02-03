@@ -6,6 +6,10 @@ on:
         description: 'Name of the package to be created'
         required: true
         default: ''
+      js:
+        description: 'Whether the package requires Javascript'
+        required: true
+        default: true
 
 jobs:
   create-repository:
