@@ -15,4 +15,4 @@ jobs:
     steps:
     - name: Check issue labels
       run: |
-        echo success && echo ${{inputs.issue}}
+        echo success && echo ${{inputs.issue.number}}
