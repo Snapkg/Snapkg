@@ -4,7 +4,10 @@ name: New Package Request
 on:
   workflow_call:
     inputs:
-      issue:
+      issue_number:
+        type: string
+        required: true
+      issue_body:
         type: string
         required: true
 
@@ -15,4 +18,4 @@ jobs:
     steps:
     - name: Check issue labels
       run: |
-        echo success && echo ${{inputs.issue.body}}
+        echo success && echo ${{inputs.issue_body}}
