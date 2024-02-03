@@ -11,8 +11,8 @@ md.use(attrs);
 
 axios.get(url)
   .then(response => {
-    console.log(JSON.parse(response));
-    const markdown = JSON.parse(response).data.body
+    console.log(JSON.parse(response.data));
+    const markdown = JSON.parse(response.data).body
     if (!markdown) {
       console.error('No issue body found.');
       process.exit(1);
