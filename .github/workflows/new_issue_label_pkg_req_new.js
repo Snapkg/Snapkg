@@ -11,7 +11,21 @@ md.use(attrs);
 
 axios.get(url)
   .then(response => {
-    console.log(response.data.body);
+    const markdown = response.data.body;
+    // Check if Markdown content is provided
+    if (!markdown) {
+        console.error('Please provide Markdown content as a command line argument.');
+        process.exit(1);
+    }
+    
+    // Parse the Markdown content
+    const tokens = md.parse(markdown, {});
+    
+    // Extract JavaScript/JSON code above "## Package manifest" header
+    const header = 'Package manifest';
+    const extractedCode = findCodeBlock(header, tokens);
+    
+    console.log(extractedCode);
     
   })
   .catch(error => {
