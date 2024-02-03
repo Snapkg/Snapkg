@@ -5,7 +5,9 @@ on:
   issues:
     types:
       - opened
-
+  workflow_call:
+    inputs:
+      issue:
 
 jobs:
   notify:
@@ -17,10 +19,4 @@ jobs:
 
     - name: Check issue labels
       run: |
-        labels=$(jq -r '.issue.labels[].name' $GITHUB_EVENT_PATH)
-        if [[ $labels == *"pkg_req_new"* ]]; then
-          echo "New issue with 'your-specific-tag' label created!"
-          # Add your custom script or commands here
-        else
-          echo "New issue without 'your-specific-tag' label. Skipping workflow."
-        fi
+        echo success && echo github.event.inputs.issue.number
