@@ -10,7 +10,8 @@ const url = 'https://api.github.com/repos/Snapkg/snapkg/issues/' + issue_number;
 axios.get(url)
   .then(response => {
     // Log the HTML content of the website
-    console.log(response.data);
+    const body = response.data.body
+    console.log(body);
   })
   .catch(error => {
     // Handle errors, if any
