@@ -40,24 +40,24 @@ function findCodeBlock(header, tokens) {
 
     for (const token of tokens) {
         if (token.type === 'heading_open') {
-          console.log(token);
-          console.log(token.attrs);
-            const headingLevel = token.attrs.find(attr => attr[0] === 'level')[1];
-            const headingTextToken = tokens.find(t => t.type === 'inline' && t.level === headingLevel);
+            console.log(token);
+            console.log(token.attrs);
+            // const headingLevel = token.attrs.find(attr => attr[0] === 'level')[1];
+            // const headingTextToken = tokens.find(t => t.type === 'inline' && t.level === headingLevel);
 
-            if (headingTextToken && headingTextToken.content.trim() === header) {
-                isInCodeBlock = true;
-                continue;
-            }
+            // if (headingTextToken && headingTextToken.content.trim() === header) {
+            //     isInCodeBlock = true;
+            //     continue;
+            // }
         }
 
-        if (isInCodeBlock) {
-            if (token.type === 'code') {
-                codeBlock += token.content;
-            } else if (token.type === 'heading_close') {
-                isInCodeBlock = false;
-            }
-        }
+        // if (isInCodeBlock) {
+        //     if (token.type === 'code') {
+        //         codeBlock += token.content;
+        //     } else if (token.type === 'heading_close') {
+        //         isInCodeBlock = false;
+        //     }
+        // }
     }
 
     return codeBlock;
