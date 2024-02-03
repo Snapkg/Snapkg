@@ -11,6 +11,7 @@ md.use(attrs);
 
 axios.get(url)
   .then(response => {
+    console.log(response);
     const markdown = response.data.body
     if (!markdown) {
       console.error('No issue body found.');
