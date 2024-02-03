@@ -18,31 +18,24 @@ Fill out the answers to the questions below. Be sure to keep your answers in the
 </p>
 </details> 
 
-## name: 
-`my-package-name-without-spaces` 
-
-## description:
-`A description of what your package does`
-
-## maintainers:
-```javascript
-[
-  { "username_github": "elfin8er" },
-  { "username_snap": "elfin8er" }
-]
-```
-
-## developers (optional):
-```javascript
-[
-  { "username_github": "elfin8er" }
-]
-```
-## sources:
+## Package manifest
 ```javascript
 {
-  "blocks": [
+  "name": "my-package-name-without-spaces"
+  "description": "A description of what your package provides."
+  "authors": {
+    "maintainers": [
+      {
+        "username_github": "your_github_username",
+        "username_snap": "your_snap_username"
+      }
+    ],
+    "developers": []
+   },
+  "sources": {
+    "blocks": [
 
-  ]
+    ]
+  }
 }
 ```
