@@ -15,7 +15,7 @@ axios.get(url)
       process.exit(1);
     }
     
-    const tokens = md.parse(markdownContent, {});
+    const tokens = md.parse(markdown, {});
     
     // Extract JavaScript/JSON code above "## Package manifest" header
     const header = 'Package manifest';
