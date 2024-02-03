@@ -14,8 +14,10 @@ on:
 jobs:
   notify:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Validate manifest JSON
-      run: |
-        md=${{ inputs.issue_body }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: wget https://raw.githubusercontent.com/Snapkg/snapkg/main/.github/workflows/new_issue_label_pkg_req_new.js
+      - run: npm install markdown-it markdown-it-attrs
+      - run: ls
