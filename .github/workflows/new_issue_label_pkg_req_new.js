@@ -39,9 +39,10 @@ function findCodeBlock(header, tokens) {
     let codeBlock = '';
 
     for (const token of tokens) {
+      console.log(token);
         if (token.type === 'heading_open') {
             // const headingLevel = token.attrs.find(attr => attr[0] === 'level')[1];
-          console.log(token);
+          
           //const headingTextToken = tokens.find(t => t.type === 'inline' && t.level === headingLevel);
 
             // if (headingTextToken && headingTextToken.content.trim() === header) {
