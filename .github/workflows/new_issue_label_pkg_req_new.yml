@@ -19,5 +19,4 @@ jobs:
     - name: Validate manifest JSON
       run: |
         md="${{ inputs.issue_body }}" &&
-        manifest=$(echo "$md" | awk '/## Package manifest/{flag=1; next} /^```javascript$/{flag=1; next} flag; /^```$/{flag=0}' | sed -e '1d; $d' | tr -d '\r') &&
-        echo "$manifest"
+        manifest=$(echo "$md" | awk '/## Package manifest/{flag=1; next} /^```javascript$/{flag=1; next} flag; /^```$/{flag=0}' | sed -e '1d; $d' | tr -d '\r')
