@@ -18,4 +18,4 @@ jobs:
 
     - name: Check issue labels
       run: |
-        echo success && echo ${{github.event.inputs.issue}}
+        echo success && echo ${{inputs.issue}}
