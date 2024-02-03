@@ -2,9 +2,6 @@ name: New Package Request
 
 # Runs when a new issue is opened
 on:
-  issues:
-    types:
-      - opened
   workflow_call:
     inputs:
       issue:
