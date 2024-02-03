@@ -1,6 +1,5 @@
-const attrs = require('markdown-it-attrs');
 const markdownit = require('markdown-it')
-const md = markdownit().use(attrs);
+const md = markdownit();
 const axios = require('axios');
 
 const issue_number = process.argv[2];
@@ -39,26 +38,27 @@ function findCodeBlock(header, tokens) {
     let codeBlock = '';
 
     for (const token of tokens) {
-      console.log(token);
-        if (token.type === 'heading_open') {
-            // const headingLevel = token.attrs.find(attr => attr[0] === 'level')[1];
-          
-          //const headingTextToken = tokens.find(t => t.type === 'inline' && t.level === headingLevel);
+    if (token.type === 'heading_open') {
+      const headingLevel = token.tag.charCodeAt(1) - '0'.charCodeAt(0);
+      const headingText = tokens[tokens.indexOf(token) + 1].content.trim();
 
-            // if (headingTextToken && headingTextToken.content.trim() === header) {
-            //     isInCodeBlock = true;
-            //     continue;
-            // }
-        }
-
-        // if (isInCodeBlock) {
-        //     if (token.type === 'code') {
-        //         codeBlock += token.content;
-        //     } else if (token.type === 'heading_close') {
-        //         isInCodeBlock = false;
-        //     }
-        // }
+      if (headingLevel === 2 && headingText === header) {
+        // Found the header, start capturing code block
+        isInCodeBlock = true;
+        continue;
+      }
     }
 
-    return codeBlock;
+    if (isInCodeBlock) {
+      if (token.type === 'code') {
+        // Found code block
+        codeBlock += token.content + '\n';
+      } else if (token.type === 'heading_open') {
+        // Found a new header, stop capturing code block
+        break;
+      }
+    }
+  }
+
+  return codeBlock.trim();
 }
