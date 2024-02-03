@@ -13,7 +13,7 @@ jobs:
     name: Creating Organization Repository
     steps:
       - name: Creating GitHub Organization Repository
-        run: gh repo create $REPO --template Snapkg/template
+        run: gh repo create --public $REPO --template Snapkg/template
         env:
           REPO: '${{ github.event.inputs.repo-name }}'
           GITHUB_TOKEN: '${{ secrets.ORG_ADMIN_TOKEN }}'
