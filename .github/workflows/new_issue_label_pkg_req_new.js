@@ -36,7 +36,7 @@ axios.get(url)
 function findCodeBlock(header, tokens) {
     let inCodeBlock = false;
     let codeBlock = '';
-    for (const token of tokens) {
+    tokens.forEach((token) => {
        console.log(token);
         if (token.type === 'heading_open') {
             // Check if the heading is the specified header
@@ -63,7 +63,7 @@ function findCodeBlock(header, tokens) {
             // Start of a JavaScript code block
             inCodeBlock = true;
         }
-    }
+    });
 
     return codeBlock;
 }
