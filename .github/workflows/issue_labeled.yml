@@ -15,4 +15,6 @@ jobs:
     with:
       issue_number: ${{ github.event.issue.number }}
       issue_body: ${{ github.event.issue.body }}
+    secrets:
+      GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
       
