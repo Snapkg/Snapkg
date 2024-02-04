@@ -36,7 +36,7 @@ jobs:
           manifest=$(<manifest.json) &&
           wget https://raw.githubusercontent.com/Snapkg/testing/main/new_package_manifest_schema.json -O manifest_schema.json &&
           cat manifest.json &&
-          if ajv -s ./manifest_schema.json -d ./manifest.json > /dev/null 2> validation_error.txt; then
+          if ajv --verbose -s ./manifest_schema.json -d ./manifest.json > /dev/null 2> validation_error.txt; then
             echo "Validation succeeded"
           else
             if [ -s validation_error.txt ]; then
