@@ -20,7 +20,13 @@ on:
         required: true
 
 jobs:
-  new_issue_label_pkg_req_new:
+  assign:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - run: gh issue edit --add-assignee "@me"
+  validate:
     runs-on: ubuntu-latest
     permissions:
       issues: write
