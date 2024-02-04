@@ -41,14 +41,18 @@ function findCodeBlock(header, tokens) {
     for (let i = 0; i < tokens.length; i++) {
         const token = tokens[i];
         if (token.type === 'heading_open' && token.tag === 'h2') {
+          console.log("heading_open");
             let nextToken = tokens[i + 1];
             if (nextToken.type === 'inline') {
+              console.log("inline");
                 const headingText = nextToken.content.trim();
                 if (headingText === header) {
                   nextToken = tokens[i + 2];
                   if(nextToken.type === 'heading_close' && nextToken.tag === 'h2') {
+                    console.log("heading_close");
                     nextToken = tokens[i + 3];
                     if(nextToken.type === 'fence' && token.info === 'javascript') {
+                      console.log("fence");
                       codeBlock += nextTtoken.content
                       break;
                     }
