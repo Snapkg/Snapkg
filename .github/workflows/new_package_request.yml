@@ -35,7 +35,7 @@ jobs:
             if [ -s validation_error.txt ]; then
               echo "Validation error:"
               cat validation_error.txt
-            else
-              echo "Validated succeeded"
             fi
+          else
+            echo "Validated succeeded"
           fi
