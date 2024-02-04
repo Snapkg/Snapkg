@@ -38,6 +38,7 @@ axios.get(url)
 function findCodeBlock(header, tokens) {
     let inCodeBlock = false;
     let codeBlock = '';
+  console.log(tokens.length);
     for (let i = 0; i < tokens.length; i++) {
         const token = tokens[i];
         console.log(token);
