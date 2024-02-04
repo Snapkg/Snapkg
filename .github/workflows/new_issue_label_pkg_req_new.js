@@ -38,16 +38,14 @@ axios.get(url)
 function findCodeBlock(header, tokens) {
     let inCodeBlock = false;
     let codeBlock = '';
-  console.log(tokens.length);
     for (let i = 0; i < tokens.length; i++) {
-      console.log(i);
         const token = tokens[i];
-        console.log(token);
         if (token.type === 'heading_open' && token.tag === 'h2') {
             const nextToken = tokens[i + 1];
             if (nextToken.type === 'inline') {
                 const headingText = nextToken.content.trim();
                 if (headingText === header) {
+                  console.log("breaking");
                     break;
                 }
             }
