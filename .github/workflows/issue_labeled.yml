@@ -10,6 +10,8 @@ jobs:
   pkg_req_new:
     if: github.event.label.name == 'pkg_req_new'
     uses: Snapkg/snapkg/.github/workflows/new_package_request.yml@main
+    permissions:
+      issues: write
     with:
       issue_number: ${{ github.event.issue.number }}
       issue_body: ${{ github.event.issue.body }}
