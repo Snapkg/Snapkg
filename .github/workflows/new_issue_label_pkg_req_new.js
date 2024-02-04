@@ -40,6 +40,7 @@ function findCodeBlock(header, tokens) {
     let codeBlock = '';
   console.log(tokens.length);
     for (let i = 0; i < tokens.length; i++) {
+      console.log(i);
         const token = tokens[i];
         console.log(token);
         if (token.type === 'heading_open' && token.tag === 'h2') {
