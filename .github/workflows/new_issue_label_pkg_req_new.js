@@ -5,8 +5,6 @@ const axios = require('axios');
 const issue_number = process.argv[2];
 const url = 'https://api.github.com/repos/Snapkg/snapkg/issues/' + issue_number;
 
-console.log(url);
-
 axios.get(url)
   .then(response => {
     const markdown = response.data.body;
@@ -18,13 +16,12 @@ axios.get(url)
     
     // Parse the Markdown content
     const tokens = md.parse(markdown, {});
-    console.log(tokens);
-    console.log("=======");
     
     // Extract JavaScript/JSON code above "## Package manifest" header
     const header = 'Package manifest';
     const extractedCode = findCodeBlock(header, tokens);
-    
+
+    console.log("Updating package manifest:");
     console.log(extractedCode);
     
   })
@@ -49,7 +46,6 @@ function findCodeBlock(header, tokens) {
                   if(nextToken.type === 'heading_close' && nextToken.tag === 'h2') {
                     nextToken = tokens[i + 3];
                     if(nextToken.type === 'fence' && nextToken.info === 'javascript') {
-                      console.log("fence:");
                       codeBlock += nextToken.content
                       break;
                     }
