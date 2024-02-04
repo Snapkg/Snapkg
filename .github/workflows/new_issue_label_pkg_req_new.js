@@ -21,6 +21,7 @@ axios.get(url)
     const header = 'Package manifest';
     const extractedCode = findCodeBlock(header, tokens);
 
+    //TODO: JSON VALIDATION?
     console.log(extractedCode);
     
   })
