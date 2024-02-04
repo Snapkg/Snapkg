@@ -36,8 +36,7 @@ axios.get(url)
 function findCodeBlock(header, tokens) {
     let inCodeBlock = false;
     let codeBlock = '';
-    for(const t in tokens) {
-       const token = tokens[t];
+    for(const token of tokens) {
        console.log(token);
         if (token.type === 'heading_open') {
             // Check if the heading is the specified header
