@@ -38,3 +38,5 @@ jobs:
           else
             echo "Validated succeeded"
           fi
+        env:
+          GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
