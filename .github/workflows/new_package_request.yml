@@ -40,7 +40,7 @@ jobs:
             echo "Validation succeeded"
           else
             if [ -s validation_error.txt ]; then
-              echo '
+              gh issue comment "${{ inputs.issue_number }}" --body '
           ## Package manifest validation failed:
           ```bash
             '"$(cat validation_error.txt)"'
