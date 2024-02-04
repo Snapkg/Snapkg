@@ -45,8 +45,8 @@ function findCodeBlock(header, tokens) {
             if (nextToken.type === 'inline') {
                 const headingText = nextToken.content.trim();
                 if (headingText === header) {
-                  console.log("breaking");
-                    break;
+                  //console.log("breaking");
+                    //break;
                 }
             }
         }
