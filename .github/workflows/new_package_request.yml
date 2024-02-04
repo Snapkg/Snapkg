@@ -29,4 +29,4 @@ jobs:
           node ./.github/workflows/new_package_request_helper.js ${{ inputs.issue_number }} > manifest.json &&
           manifest=$(<manifest.json) &&
           wget https://raw.githubusercontent.com/Snapkg/testing/main/manifest_schema%3F.json &&
-          ls ./node_modules/.bin
+          ls ./node_modules
