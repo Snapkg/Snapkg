@@ -41,8 +41,8 @@ jobs:
           else
             if [ -s validation_error.txt ]; then
               gh issue comment "${{ inputs.issue_number }}" --body '
-                ## Package manifest validation failed: 
-                ```'"$(cat validation_error.txt)"'```
+          ## Package manifest validation failed:
+          ```'"$(cat validation_error.txt)"'```
               '
             fi
           fi
