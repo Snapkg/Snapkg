@@ -30,4 +30,5 @@ jobs:
           node ./.github/workflows/new_package_request_helper.js ${{ inputs.issue_number }} > manifest.json &&
           manifest=$(<manifest.json) &&
           wget https://raw.githubusercontent.com/Snapkg/testing/main/manifest_schema%3F.json -O manifest_schema.json &&
+          ls &&
           ajv -s ./manifest_schema.json -d ./manifest.json
