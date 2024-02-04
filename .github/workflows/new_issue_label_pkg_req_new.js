@@ -49,7 +49,7 @@ function findCodeBlock(header, tokens) {
             }
         }
 
-        if (isInCodeBlock) {
+        if (inCodeBlock) {
             if (token.type === 'fence' && token.info === 'javascript') {
                 break;
             }
@@ -57,7 +57,7 @@ function findCodeBlock(header, tokens) {
         }
 
         if (token.type === 'fence' && token.info === 'javascript') {
-            isInCodeBlock = true;
+            inCodeBlock = true;
         }
     }
 
