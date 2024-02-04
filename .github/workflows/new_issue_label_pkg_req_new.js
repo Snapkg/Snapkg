@@ -64,7 +64,7 @@ function findCodeBlock(header, tokens) {
             // Start of a JavaScript code block
             inCodeBlock = true;
         }
-    });
+    };
 
     return codeBlock;
 }
