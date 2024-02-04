@@ -36,15 +36,15 @@ jobs:
           manifest=$(<manifest.json) &&
           wget https://raw.githubusercontent.com/Snapkg/testing/main/new_package_manifest_schema.json -O manifest_schema.json &&
           cat manifest.json &&
-          if ! (ajv -s ./manifest_schema.json -d ./manifest.json > /dev/null 2> validation_error.txt); then
-            if [ -s validation_error.txt ]; then
-              gh issue comment "${{ inputs.issue_number }}" --body "
-                ## Package manifest validation failed: 
-                ```$(cat validation_error.txt)```
-              "
-            fi
+          if ajv -s ./manifest_schema.json -d ./manifest.json > /dev/null 2> validation_error.txt; then
+            echo "Validation succeeded"
           else
-            echo "Validated succeeded"
+            if [ -s validation_error.txt ]; then
+              gh issue comment "${{ inputs.issue_number }}" --body '
+                ## Package manifest validation failed: 
+                ```'"$(cat validation_error.txt)"'```
+              '
+            fi
           fi
         env:
           GH_TOKEN: ${{ secrets.SNAPKG_BOT_TOKEN }}
