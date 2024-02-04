@@ -51,7 +51,7 @@ function findCodeBlock(header, tokens) {
                   if(nextToken.type === 'heading_close' && nextToken.tag === 'h2') {
                     console.log("heading_close");
                     nextToken = tokens[i + 3];
-                    if(nextToken.type === 'fence' && token.info === 'javascript') {
+                    if(nextToken.type === 'fence' && nextToken.info === 'javascript') {
                       console.log("fence");
                       codeBlock += nextTtoken.content
                       break;
