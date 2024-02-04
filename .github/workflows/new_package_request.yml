@@ -11,7 +11,7 @@ on:
         type: string
         required: false
     secrets:
-      ORG_ADMIN_TOKEN:
+      SNAPKG_BOT_TOKEN:
         required: true
   workflow_dispatch:
     inputs:
@@ -44,4 +44,4 @@ jobs:
             echo "Validated succeeded"
           fi
         env:
-          GH_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
+          GH_TOKEN: ${{ secrets.SNAPKG_BOT_TOKEN }}
