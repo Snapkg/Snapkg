@@ -21,7 +21,6 @@ axios.get(url)
     const header = 'Package manifest';
     const extractedCode = findCodeBlock(header, tokens);
 
-    console.log("Updating package manifest:");
     console.log(extractedCode);
     
   })
