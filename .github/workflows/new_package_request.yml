@@ -10,6 +10,9 @@ on:
       issue_body:
         type: string
         required: false
+    secrets:
+      ORG_ADMIN_TOKEN:
+        required: true
   workflow_dispatch:
     inputs:
       issue_number:
