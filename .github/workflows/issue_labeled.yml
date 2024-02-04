@@ -16,5 +16,5 @@ jobs:
       issue_number: ${{ github.event.issue.number }}
       issue_body: ${{ github.event.issue.body }}
     secrets:
-      ORG_ADMIN_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
+      ORG_ADMIN_TOKEN: ${{ secrets.SNAPKG_BOT_TOKEN }}
       
