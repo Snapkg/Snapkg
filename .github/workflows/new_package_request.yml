@@ -32,4 +32,5 @@ jobs:
           wget https://raw.githubusercontent.com/Snapkg/testing/main/new_package_manifest_schema.json -O manifest_schema.json &&
           cat manifest.json &&
           ajv -s ./manifest_schema.json -d ./manifest.json > validation_error.txt &&
+          cat validation_error.txt
           if [ -s validation_error.txt ]; then echo "Validation error:"; cat validation_error.txt; fi
