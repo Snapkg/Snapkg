@@ -36,34 +36,30 @@ axios.get(url)
 function findCodeBlock(header, tokens) {
     let inCodeBlock = false;
     let codeBlock = '';
-    for(const token of tokens) {
-       console.log(token);
-        if (token.type === 'heading_open') {
-            // Check if the heading is the specified header
-            const headingText = tokens.find(t => t.type === 'inline' && t.content === header);
-            if (headingText) {
-                break; // Stop if the specified header is found
+    for (let i = 0; i < tokens.length; i++) {
+        const token = tokens[i];
+
+        if (token.type === 'heading_open' && token.tag === 'h2') {
+            const nextToken = tokens[i + 1];
+            if (nextToken.type === 'inline') {
+                const headingText = nextToken.content.trim();
+                if (headingText === header) {
+                    break;
+                }
             }
         }
 
-        if (inCodeBlock) {
-            if (token.type === 'code_block') {
-                // End of the code block, exit the loop
+        if (isInCodeBlock) {
+            if (token.type === 'fence' && token.info === 'javascript') {
                 break;
-            } else if (token.type === 'softbreak') {
-                // Softbreaks are ignored in code blocks
-                continue;
-            } else {
-                // Append the token content to the code block
-                codeBlock += token.content;
             }
+            codeBlock += token.content;
         }
 
         if (token.type === 'fence' && token.info === 'javascript') {
-            // Start of a JavaScript code block
-            inCodeBlock = true;
+            isInCodeBlock = true;
         }
-    };
+    }
 
-    return codeBlock;
+    return codeBlock.trim();
 }
