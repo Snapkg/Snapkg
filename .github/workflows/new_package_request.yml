@@ -33,8 +33,7 @@ jobs:
           cat manifest.json &&
           if ! (ajv -s ./manifest_schema.json -d ./manifest.json > /dev/null 2> validation_error.txt); then
             if [ -s validation_error.txt ]; then
-              echo "Validation error:"
-              cat validation_error.txt
+              gh issue comment "${{ inputs.issue_number }}" --body "$(cat validation_error.txt)"
             fi
           else
             echo "Validated succeeded"
