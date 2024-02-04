@@ -9,6 +9,11 @@ on:
         required: true
       issue_body:
         type: string
+        required: false
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        type: string
         required: true
 
 jobs:
