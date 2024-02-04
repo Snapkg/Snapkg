@@ -31,5 +31,5 @@ jobs:
           manifest=$(<manifest.json) &&
           wget https://raw.githubusercontent.com/Snapkg/testing/main/manifest_schema%3F.json -O manifest_schema.json &&
           ls &&
-          cat manifest.json
+          cat manifest.json &&
           ajv -s ./manifest_schema.json -d ./manifest.json
