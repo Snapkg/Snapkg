@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: 18
       - run: |
-          npm install axios markdown-it markdown-it-attrs &&
+          npm install axios markdown-it markdown-it-attrs ajv &&
           node ./.github/workflows/new_issue_label_pkg_req_new.js ${{ inputs.issue_number }} > manifest.json &&
           manifest=$(<manifest.json) &&
+          wget https://raw.githubusercontent.com/Snapkg/testing/main/manifest_schema%3F.json &&
+          ls
+          
