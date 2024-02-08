@@ -20,12 +20,6 @@ on:
         required: true
 
 jobs:
-  assign:
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-    steps:
-      - run: gh issue edit --add-assignee "@me"
   validate:
     runs-on: ubuntu-latest
     permissions:
