@@ -1,400 +1,692 @@
-<blocks app="Snap! 9.0, https://snap.berkeley.edu" version="2">
-  <palette>
-    <category name="Snapkg" color="0,116,143,1"/>
-  </palette>
-  <block-definition s="📦Install Snapkg from %&apos;URL&apos;" type="command" category="Snapkg">
-    <variables>
-      <list struct="atomic" id="3">debug,start_time,pkg,pkg_name,pkg_version,pkg_author,pkg_sources,source</list>
-    </variables>
-    <header></header>
-    <code></code>
-    <translations></translations>
-    <inputs>
-      <input type="%s">https://raw.githubusercontent.com/Snapkg/snapkg/main/manifest.json</input>
-    </inputs>
-    <script>
-      <block s="doIf">
-        <block s="reportNot">
-          <block s="reportListContainsItem">
-            <block s="reportApplyExtension">
-              <l>var_names(scope)</l>
-              <list>
-                <l>global</l>
-              </list>
-            </block>
-            <l>📦log</l>
-          </block>
-        </block>
-        <script>
-          <block s="doApplyExtension">
-            <l>var_declare(scope, name)</l>
-            <list>
-              <l>global</l>
-              <l>📦log</l>
-            </list>
-          </block>
-          <block s="doApplyExtension">
-            <l>var_set(name, val)</l>
-            <list>
-              <l>📦log</l>
-              <block s="reportNewList">
-                <list></list>
-              </block>
-            </list>
-          </block>
-        </script>
-        <list></list>
-      </block>
-      <block s="doIf">
-        <block s="reportNot">
-          <block s="reportApplyExtension">
-            <l>var_showing(name)?</l>
-            <list>
-              <l>📦log</l>
-            </list>
-          </block>
-        </block>
-        <script>
-          <block s="doApplyExtension">
-            <l>var_show(name)</l>
-            <list>
-              <l>📦log</l>
-            </list>
-          </block>
-        </script>
-        <list></list>
-      </block>
-      <block s="doIf">
-        <block s="reportNot">
-          <block s="reportListContainsItem">
-            <block s="reportApplyExtension">
-              <l>var_names(scope)</l>
-              <list>
-                <l>global</l>
-              </list>
-            </block>
-            <l>📦</l>
-          </block>
-        </block>
-        <script>
-          <block s="doApplyExtension">
-            <l>var_declare(scope, name)</l>
-            <list>
-              <l>global</l>
-              <l>📦</l>
-            </list>
-          </block>
-          <block s="doApplyExtension">
-            <l>var_set(name, val)</l>
-            <list>
-              <l>📦</l>
-              <block s="reportTextSplit">
-                <l>{"installed": [], "repositories": [], "packages": []}</l>
-                <l>
-                  <option>json</option>
-                </l>
-              </block>
-            </list>
-          </block>
-        </script>
-        <list></list>
-      </block>
-      <block s="doSetVar">
-        <l>start_time</l>
-        <block s="reportDate">
-          <l>
-            <option>time in milliseconds</option>
-          </l>
-        </block>
-      </block>
-      <block s="doAddToList">
-        <block s="reportJoinWords">
-          <list>
-            <l>Downloading Snapkg from: </l>
-            <block var="URL"/>
-          </list>
-        </block>
-        <block s="reportApplyExtension">
-          <l>var_get(name)</l>
-          <list>
-            <l>📦log</l>
-          </list>
-        </block>
-      </block>
-      <block s="doSetVar">
-        <l>pkg</l>
-        <block s="reportTextSplit">
-          <block s="reportURL">
-            <block var="URL"/>
-          </block>
-          <l>
-            <option>json</option>
-          </l>
-        </block>
-      </block>
-      <block s="doAddToList">
-        <block var="pkg"/>
-        <block s="reportApplyExtension">
-          <l>var_get(name)</l>
-          <list>
-            <l>📦log</l>
-          </list>
-        </block>
-      </block>
-      <block s="doSetVar">
-        <l>pkg_name</l>
-        <block s="reportListItem">
-          <l>2</l>
-          <block s="reportListItem">
-            <l>2</l>
-            <block var="pkg"/>
-          </block>
-        </block>
-      </block>
-      <block s="doSetVar">
-        <l>pkg_version</l>
-        <block s="reportListItem">
-          <l>2</l>
-          <block s="reportListItem">
-            <l>3</l>
-            <block var="pkg"/>
-          </block>
-        </block>
-      </block>
-      <block s="doSetVar">
-        <l>pkg_author</l>
-        <block s="reportListItem">
-          <l>2</l>
-          <block s="reportListItem">
-            <l>4</l>
-            <block var="pkg"/>
-          </block>
-        </block>
-      </block>
-      <block s="doAddToList">
-        <block s="reportJoinWords">
-          <list>
-            <l>Update available! Installing </l>
-            <block var="pkg_name"/>
-            <l> vers </l>
-            <block var="pkg_version"/>
-            <l> by </l>
-            <block s="reportListItem">
-              <l>2</l>
-              <block s="reportListItem">
-                <l>1</l>
-                <block s="reportListItem">
-                  <l>1</l>
-                  <block var="pkg_author"/>
-                </block>
-              </block>
-            </block>
-          </list>
-        </block>
-        <block s="reportApplyExtension">
-          <l>var_get(name)</l>
-          <list>
-            <l>📦log</l>
-          </list>
-        </block>
-      </block>
-      <block s="doSetVar">
-        <l>pkg_sources</l>
-        <block s="reportListItem">
-          <l>2</l>
-          <block s="reportListItem">
-            <l>5</l>
-            <block var="pkg"/>
-          </block>
-        </block>
-      </block>
-      <block s="doForEach">
-        <l>item</l>
-        <block var="pkg_sources"/>
-        <script>
-          <block s="doForEach">
-            <l>item</l>
-            <block s="reportListItem">
-              <l>2</l>
-              <block var="item"/>
-            </block>
-            <script>
-              <block s="doAddToList">
-                <block var="item"/>
-                <block s="reportApplyExtension">
-                  <l>var_get(name)</l>
-                  <list>
-                    <l>📦log</l>
-                  </list>
-                </block>
-              </block>
-              <block s="doSetVar">
-                <l>source</l>
-                <block s="reportURL">
-                  <block s="reportListItem">
-                    <l>2</l>
-                    <block s="reportListItem">
-                      <l>1</l>
-                      <block var="item"/>
-                    </block>
-                  </block>
-                </block>
-              </block>
-              <block s="doAddToList">
-                <l>Importing source</l>
-                <block s="reportApplyExtension">
-                  <l>var_get(name)</l>
-                  <list>
-                    <l>📦log</l>
-                  </list>
-                </block>
-              </block>
-              <block s="doRun">
-                <block s="reportJSFunction">
-                  <list>
-                    <l>xmlString</l>
-                  </list>
-                  <l>this.parentThatIsA(IDE_Morph).rawOpenBlocksString(xmlString, "block", true)</l>
-                </block>
-                <list>
-                  <block var="source"/>
-                </list>
-              </block>
-            </script>
-          </block>
-        </script>
-      </block>
-      <block s="doDeclareVariables">
-        <list>
-          <l>i</l>
-          <l>found</l>
-        </list>
-      </block>
-      <block s="doSetVar">
-        <l>i</l>
-        <l>1</l>
-      </block>
-      <block s="doForEach">
-        <l>item</l>
-        <block s="reportListItem">
-          <l>2</l>
-          <block s="reportListItem">
-            <l>1</l>
-            <block s="reportApplyExtension">
-              <l>var_get(name)</l>
-              <list>
-                <l>📦</l>
-              </list>
-            </block>
-          </block>
-        </block>
-        <script>
-          <block s="doIf">
-            <block s="reportVariadicEquals">
-              <list>
-                <block s="reportListItem">
-                  <l>2</l>
-                  <block s="reportListItem">
-                    <l>1</l>
-                    <block var="item"/>
-                  </block>
-                </block>
-                <block var="pkg_name"/>
-              </list>
-            </block>
-            <script>
-              <block s="doReplaceInList">
-                <block var="i"/>
-                <block s="reportListItem">
-                  <l>2</l>
-                  <block s="reportListItem">
-                    <l>1</l>
-                    <block s="reportApplyExtension">
-                      <l>var_get(name)</l>
-                      <list>
-                        <l>📦</l>
-                      </list>
-                    </block>
-                  </block>
-                </block>
-                <block var="pkg"/>
-              </block>
-              <block s="doSetVar">
-                <l>found</l>
-                <block s="reportBoolean">
-                  <l>
-                    <bool>true</bool>
-                  </l>
-                </block>
-              </block>
-              <block s="doStopThis">
-                <l>
-                  <option>this block</option>
-                </l>
-              </block>
-            </script>
-            <list></list>
-          </block>
-          <block s="doChangeVar">
-            <l>i</l>
-            <l>1</l>
-          </block>
-        </script>
-      </block>
-      <block s="doIf">
-        <block s="reportNot">
-          <block var="found"/>
-        </block>
-        <script>
-          <block s="doAddToList">
-            <block var="pkg"/>
-            <block s="reportListItem">
-              <l>2</l>
-              <block s="reportListItem">
-                <l>1</l>
-                <block s="reportApplyExtension">
-                  <l>var_get(name)</l>
-                  <list>
-                    <l>📦</l>
-                  </list>
-                </block>
-              </block>
-            </block>
-          </block>
-        </script>
-        <list></list>
-      </block>
-      <block s="doAddToList">
-        <block s="reportJoinWords">
-          <list>
-            <l>Done in </l>
-            <block s="reportJoinWords">
-              <list>
-                <block s="reportDifference">
-                  <block s="reportDate">
-                    <l>
-                      <option>time in milliseconds</option>
-                    </l>
-                  </block>
-                  <block var="start_time"/>
-                </block>
-                <l> ms</l>
-              </list>
-            </block>
-          </list>
-        </block>
-        <block s="reportApplyExtension">
-          <l>var_get(name)</l>
-          <list>
-            <l>📦log</l>
-          </list>
-        </block>
-      </block>
-    </script>
-    <scripts>
-      <script x="14" y="1768.1833333333332">
-        <block s="errorObsolete"></block>
-      </script>
-    </scripts>
-  </block-definition>
-</blocks>
+<script app="Snap! 9.0, https://snap.berkeley.edu" version="2">
+	<blocks>
+		<palette>
+			<category name="Snapkg" color="0,116,143,1"/>
+		</palette>
+		<block-definition s="📦Install Snapkg from %&apos;URL&apos;" type="command" category="Snapkg">
+			<variables>
+				<list struct="atomic" id="3">debug,start_time,pkg,pkg_name,pkg_version,pkg_author,pkg_sources,source</list>
+			</variables>
+			<header></header>
+			<code></code>
+			<translations></translations>
+			<inputs>
+				<input type="%s">https://raw.githubusercontent.com/Snapkg/snapkg/main/manifest.json</input>
+			</inputs>
+			<script>
+				<block s="doIf">
+					<block s="reportNot">
+						<block s="reportListContainsItem">
+							<block s="reportApplyExtension">
+								<l>var_names(scope)</l>
+								<list>
+									<l>global</l>
+								</list>
+							</block>
+							<l>📦log</l>
+						</block>
+					</block>
+					<script>
+						<block s="doApplyExtension">
+							<l>var_declare(scope, name)</l>
+							<list>
+								<l>global</l>
+								<l>📦log</l>
+							</list>
+						</block>
+						<block s="doApplyExtension">
+							<l>var_set(name, val)</l>
+							<list>
+								<l>📦log</l>
+								<block s="reportNewList">
+									<list></list>
+								</block>
+							</list>
+						</block>
+					</script>
+					<list></list>
+				</block>
+				<block s="doIf">
+					<block s="reportNot">
+						<block s="reportApplyExtension">
+							<l>var_showing(name)?</l>
+							<list>
+								<l>📦log</l>
+							</list>
+						</block>
+					</block>
+					<script>
+						<block s="doApplyExtension">
+							<l>var_show(name)</l>
+							<list>
+								<l>📦log</l>
+							</list>
+						</block>
+					</script>
+					<list></list>
+				</block>
+				<block s="doIf">
+					<block s="reportNot">
+						<block s="reportListContainsItem">
+							<block s="reportApplyExtension">
+								<l>var_names(scope)</l>
+								<list>
+									<l>global</l>
+								</list>
+							</block>
+							<l>📦</l>
+						</block>
+					</block>
+					<script>
+						<block s="doApplyExtension">
+							<l>var_declare(scope, name)</l>
+							<list>
+								<l>global</l>
+								<l>📦</l>
+							</list>
+						</block>
+						<block s="doApplyExtension">
+							<l>var_set(name, val)</l>
+							<list>
+								<l>📦</l>
+								<block s="reportTextSplit">
+									<l>{"installed": [], "repositories": [], "packages": []}</l>
+									<l>
+										<option>json</option>
+									</l>
+								</block>
+							</list>
+						</block>
+					</script>
+					<list></list>
+				</block>
+				<block s="doSetVar">
+					<l>start_time</l>
+					<block s="reportDate">
+						<l>
+							<option>time in milliseconds</option>
+						</l>
+					</block>
+				</block>
+				<block s="doAddToList">
+					<block s="reportJoinWords">
+						<list>
+							<l>Downloading Snapkg from: </l>
+							<block var="URL"/>
+						</list>
+					</block>
+					<block s="reportApplyExtension">
+						<l>var_get(name)</l>
+						<list>
+							<l>📦log</l>
+						</list>
+					</block>
+				</block>
+				<block s="doSetVar">
+					<l>pkg</l>
+					<block s="reportTextSplit">
+						<block s="reportURL">
+							<block var="URL"/></block>
+						<l>
+							<option>json</option>
+						</l>
+					</block>
+				</block>
+				<block s="doAddToList">
+					<block var="pkg"/>
+					<block s="reportApplyExtension">
+						<l>var_get(name)</l>
+						<list>
+							<l>📦log</l>
+						</list>
+					</block>
+				</block>
+				<block s="doSetVar">
+					<l>pkg_name</l>
+					<block s="reportListItem">
+						<l>2</l>
+						<block s="reportListItem">
+							<l>2</l>
+							<block var="pkg"/></block>
+					</block>
+				</block>
+				<block s="doSetVar">
+					<l>pkg_version</l>
+					<block s="reportListItem">
+						<l>2</l>
+						<block s="reportListItem">
+							<l>3</l>
+							<block var="pkg"/></block>
+					</block>
+				</block>
+				<block s="doSetVar">
+					<l>pkg_author</l>
+					<block s="reportListItem">
+						<l>2</l>
+						<block s="reportListItem">
+							<l>5</l>
+							<block var="pkg"/></block>
+					</block>
+				</block>
+				<block s="doAddToList">
+					<block s="reportJoinWords">
+						<list>
+							<l>Update available! Installing </l>
+							<block var="pkg_name"/>
+							<l> vers </l>
+							<block var="pkg_version"/>
+						</list>
+					</block>
+					<block s="reportApplyExtension">
+						<l>var_get(name)</l>
+						<list>
+							<l>📦log</l>
+						</list>
+					</block>
+				</block>
+				<block s="doSetVar">
+					<l>pkg_sources</l>
+					<block s="reportListItem">
+						<l>2</l>
+						<block s="reportListItem">
+							<l>6</l>
+							<block var="pkg"/></block>
+					</block>
+				</block>
+				<block s="doForEach">
+					<l>item</l>
+					<block var="pkg_sources"/>
+					<script>
+						<block s="doForEach">
+							<l>item</l>
+							<block s="reportListItem">
+								<l>2</l>
+								<block var="item"/></block>
+							<script>
+								<block s="doAddToList">
+									<block var="item"/>
+									<block s="reportApplyExtension">
+										<l>var_get(name)</l>
+										<list>
+											<l>📦log</l>
+										</list>
+									</block>
+								</block>
+								<block s="doSetVar">
+									<l>source</l>
+									<block s="reportURL">
+										<block s="reportListItem">
+											<l>2</l>
+											<block s="reportListItem">
+												<l>1</l>
+												<block var="item"/></block>
+										</block>
+									</block>
+								</block>
+								<block s="doShowVar">
+									<l>source</l>
+								</block>
+								<block s="doAddToList">
+									<l>Importing source</l>
+									<block s="reportApplyExtension">
+										<l>var_get(name)</l>
+										<list>
+											<l>📦log</l>
+										</list>
+									</block>
+								</block>
+								<block s="doRun">
+									<block s="reportJSFunction">
+										<list>
+											<l>xmlString</l>
+										</list>
+										<l>this.parentThatIsA(IDE_Morph).rawOpenBlocksString(xmlString, "block", true)</l>
+									</block>
+									<list>
+										<block var="source"/>
+									</list>
+								</block>
+							</script>
+						</block>
+					</script>
+				</block>
+				<block s="doDeclareVariables">
+					<list>
+						<l>i</l>
+						<l>found</l>
+					</list>
+				</block>
+				<block s="doSetVar">
+					<l>i</l>
+					<l>1</l>
+				</block>
+				<block s="doForEach">
+					<l>item</l>
+					<block s="reportListItem">
+						<l>2</l>
+						<block s="reportListItem">
+							<l>1</l>
+							<block s="reportApplyExtension">
+								<l>var_get(name)</l>
+								<list>
+									<l>📦</l>
+								</list>
+							</block>
+						</block>
+					</block>
+					<script>
+						<block s="doIf">
+							<block s="reportVariadicEquals">
+								<list>
+									<block s="reportListItem">
+										<l>2</l>
+										<block s="reportListItem">
+											<l>1</l>
+											<block var="item"/></block>
+									</block>
+									<block var="pkg_name"/>
+								</list>
+							</block>
+							<script>
+								<block s="doReplaceInList">
+									<block var="i"/>
+									<block s="reportListItem">
+										<l>2</l>
+										<block s="reportListItem">
+											<l>1</l>
+											<block s="reportApplyExtension">
+												<l>var_get(name)</l>
+												<list>
+													<l>📦</l>
+												</list>
+											</block>
+										</block>
+									</block>
+									<block var="pkg"/></block>
+								<block s="doSetVar">
+									<l>found</l>
+									<block s="reportBoolean">
+										<l>
+											<bool>true</bool>
+										</l>
+									</block>
+								</block>
+								<block s="doStopThis">
+									<l>
+										<option>this block</option>
+									</l>
+								</block>
+							</script>
+							<list></list>
+						</block>
+						<block s="doChangeVar">
+							<l>i</l>
+							<l>1</l>
+						</block>
+					</script>
+				</block>
+				<block s="doIf">
+					<block s="reportNot">
+						<block var="found"/></block>
+					<script>
+						<block s="doAddToList">
+							<block var="pkg"/>
+							<block s="reportListItem">
+								<l>2</l>
+								<block s="reportListItem">
+									<l>1</l>
+									<block s="reportApplyExtension">
+										<l>var_get(name)</l>
+										<list>
+											<l>📦</l>
+										</list>
+									</block>
+								</block>
+							</block>
+						</block>
+					</script>
+					<list></list>
+				</block>
+				<block s="doAddToList">
+					<block s="reportJoinWords">
+						<list>
+							<l>Done in </l>
+							<block s="reportJoinWords">
+								<list>
+									<block s="reportDifference">
+										<block s="reportDate">
+											<l>
+												<option>time in milliseconds</option>
+											</l>
+										</block>
+										<block var="start_time"/></block>
+									<l> ms</l>
+								</list>
+							</block>
+						</list>
+					</block>
+					<block s="reportApplyExtension">
+						<l>var_get(name)</l>
+						<list>
+							<l>📦log</l>
+						</list>
+					</block>
+				</block>
+			</script>
+			<scripts>
+				<script x="14" y="1768.1833333333332">
+					<block s="errorObsolete"></block>
+				</script>
+				<comment x="512.8666687011719" y="49.200000000000045" w="90" collapsed="false">Package manifest vers 0.2</comment>
+				<script x="506.8999996185303" y="520.3499999999999">
+					<block s="reportListItem">
+						<l>2</l>
+						<block s="reportListItem">
+							<l>1</l>
+							<block s="reportListItem">
+								<l>1</l>
+								<block var="pkg_author"/></block>
+						</block>
+					</block>
+				</script>
+			</scripts>
+		</block-definition>
+	</blocks>
+	<script>
+		<custom-block s="📦Install Snapkg from %s">
+			<l>https://raw.githubusercontent.com/Snapkg/snapkg/main/manifest.json</l>
+			<variables>
+				<variable name="debug">
+					<l>0</l>
+				</variable>
+				<variable name="start_time">
+					<l>1711286008175</l>
+				</variable>
+				<variable name="pkg">
+					<list id="4">
+						<item>
+							<list struct="atomic" id="5">schema,0.2</list>
+						</item>
+						<item>
+							<list struct="atomic" id="6">name,snapkg</list>
+						</item>
+						<item>
+							<list struct="atomic" id="7">version,0.11</list>
+						</item>
+						<item>
+							<list struct="atomic" id="8">issues,https://github.com/elfin8er/Snapkg/issues</list>
+						</item>
+						<item>
+							<list id="9">
+								<item>
+									<l>authors</l>
+								</item>
+								<item>
+									<list id="10">
+										<item>
+											<list id="11">
+												<item>
+													<l>maintainers</l>
+												</item>
+												<item>
+													<list id="12">
+														<item>
+															<list id="13">
+																<item>
+																	<list struct="atomic" id="14">username_github,elfin8er</list>
+																</item>
+																<item>
+																	<list struct="atomic" id="15">username_snap,elfin8er</list>
+																</item>
+															</list>
+														</item>
+													</list>
+												</item>
+											</list>
+										</item>
+										<item>
+											<list id="16">
+												<item>
+													<l>developers</l>
+												</item>
+												<item>
+													<list id="17">
+														<item>
+															<list id="18">
+																<item>
+																	<list struct="atomic" id="19">username_github,elfin8er</list>
+																</item>
+																<item>
+																	<list struct="atomic" id="20">username_snap,elfin8er</list>
+																</item>
+															</list>
+														</item>
+													</list>
+												</item>
+											</list>
+										</item>
+									</list>
+								</item>
+							</list>
+						</item>
+						<item>
+							<list id="21">
+								<item>
+									<l>sources</l>
+								</item>
+								<item>
+									<list id="22">
+										<item>
+											<list id="23">
+												<item>
+													<l>blocks</l>
+												</item>
+												<item>
+													<list id="24">
+														<item>
+															<list id="25">
+																<item>
+																	<list struct="atomic" id="26">url,https://raw.githubusercontent.com/Snapkg/snapkg/development/blocks/Snapkg/blocks.xml</list>
+																</item>
+																<item>
+																	<list id="27">
+																		<item>
+																			<l>provides</l>
+																		</item>
+																		<item>
+																			<list id="28">
+																				<item>
+																					<list id="29">
+																						<item>
+																							<list struct="atomic" id="30">spec,📦Add repository from %&apos;type&apos; %&apos;URL&apos;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="31">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="32">
+																						<item>
+																							<list struct="atomic" id="33">spec,📦List available packages</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="34">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="35">
+																						<item>
+																							<list struct="atomic" id="36">spec,📦Install package from %&apos;install_type&apos; %&apos;arg1&apos;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="37">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="38">
+																						<item>
+																							<list struct="atomic" id="39">spec,📦Uninstall package from %&apos;type&apos; %&apos;URL&apos;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="40">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="41">
+																						<item>
+																							<list struct="atomic" id="42">spec,📦List installed packages</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="43">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="44">
+																						<item>
+																							<list struct="atomic" id="45">spec,=== Advanced $arrowDown ===</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="46">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="47">
+																						<item>
+																							<list struct="atomic" id="48">spec,📦Add package %&apos;pkg&apos;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="49">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="50">
+																						<item>
+																							<list struct="atomic" id="51">spec,📦Import package %&apos;pkg&apos;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="52">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="53">
+																						<item>
+																							<list struct="atomic" id="54">spec,📦Remove package from %&apos;type&apos; %&apos;URL&apos;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="55">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="56">
+																						<item>
+																							<list struct="atomic" id="57">spec,📦Delete package from %&apos;type&apos; %&apos;pkg&apos;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="58">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="59">
+																						<item>
+																							<list struct="atomic" id="60">spec,📦Initialize</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="61">category,Snapkg</list>
+																						</item>
+																					</
+list>
+																				</item>
+																				<item>
+																					<list id="62">
+																						<item>
+																							<list struct="atomic" id="63">spec,Source %&apos;url&apos; provides: %&apos;blocks&apos;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="64">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="65">
+																						<item>
+																							<list struct="atomic" id="66">spec,&quot;Package %&apos;name&apos; , vers: %&apos;version&apos; , authors: %&apos;authors&apos; , sources: %&apos;sources&apos; , schema %&apos;schema&apos;&quot;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="67">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="68">
+																						<item>
+																							<list struct="atomic" id="69">spec,Author %&apos;name&apos; ( %&apos;username&apos; ) : %&apos;URL&apos;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="70">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																				<item>
+																					<list id="71">
+																						<item>
+																							<list struct="atomic" id="72">spec,&quot;Block spec: %&apos;spec&apos; , category: %&apos;category&apos;&quot;</list>
+																						</item>
+																						<item>
+																							<list struct="atomic" id="73">category,Snapkg</list>
+																						</item>
+																					</list>
+																				</item>
+																			</list>
+																		</item>
+																	</list>
+																</item>
+															</list>
+														</item>
+													</list>
+												</item>
+											</list>
+										</item>
+									</list>
+								</item>
+							</list>
+						</item>
+					</list>
+				</variable>
+				<variable name="pkg_name">
+					<l>snapkg</l>
+				</variable>
+				<variable name="pkg_version">
+					<l>0.11</l>
+				</variable>
+				<variable name="pkg_author">
+					<ref id="10"></ref>
+				</variable>
+				<variable name="pkg_sources">
+					<ref id="22"></ref>
+				</variable>
+				<variable name="source">
+					<l>&lt;blocks app="Snap! 9.0, https://snap.berkeley.edu" version="2"&gt;&#xD;  &lt;palette&gt;&#xD;    &lt;category name="Snapkg" color="0,116,143,1"/&gt;&#xD;  &lt;/palette&gt;&#xD;  &lt;block-definition s="📦Add repository from %&amp;apos;type&amp;apos; %&amp;apos;URL&amp;apos;" type="command" category="Snapkg"&gt;&#xD;    &lt;variables&gt;&#xD;      &lt;list struct="atomic" id="6"&gt;debug,start_time&lt;/list&gt;&#xD;    &lt;/variables&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s" readonly="true"&gt;URL&lt;options&gt;URL&amp;#xD;JSON&amp;#xD;List&lt;/options&gt;&#xD;      &lt;/input&gt;&#xD;      &lt;input type="%s"&gt;https://raw.githubusercontent.com/elfin8er/Snapkg/master/index.json&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doSetVar"&gt;&#xD;        &lt;l&gt;start_time&lt;/l&gt;&#xD;        &lt;block s="reportDate"&gt;&#xD;          &lt;l&gt;&#xD;            &lt;option&gt;time in milliseconds&lt;/option&gt;&#xD;          &lt;/l&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doIf"&gt;&#xD;        &lt;block s="reportVariadicEquals"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;block var="type"/&gt;&#xD;            &lt;l&gt;JSON&lt;/l&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;custom-block s="📦Add repository from %s %s"&gt;&#xD;            &lt;l&gt;List&lt;/l&gt;&#xD;            &lt;block s="reportTextSplit"&gt;&#xD;              &lt;block var="URL"/&gt;&#xD;              &lt;l&gt;&#xD;                &lt;option&gt;json&lt;/option&gt;&#xD;              &lt;/l&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;variables&gt;&#xD;              &lt;variable name="debug"&gt;&#xD;                &lt;l&gt;0&lt;/l&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="start_time"&gt;&#xD;                &lt;l&gt;1705863638741&lt;/l&gt;&#xD;              &lt;/variable&gt;&#xD;            &lt;/variables&gt;&#xD;          &lt;/custom-block&gt;&#xD;        &lt;/script&gt;&#xD;        &lt;list&gt;&#xD;          &lt;block s="reportVariadicEquals"&gt;&#xD;            &lt;list&gt;&#xD;              &lt;block var="type"/&gt;&#xD;              &lt;l&gt;URL&lt;/l&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;script&gt;&#xD;            &lt;block s="doAddToList"&gt;&#xD;              &lt;block s="reportJoinWords"&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;l&gt;Downloading &lt;/l&gt;&#xD;                  &lt;block var="URL"/&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;block s="reportApplyExtension"&gt;&#xD;                &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;l&gt;📦log&lt;/l&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;custom-block s="📦Add repository from %s %s"&gt;&#xD;              &lt;l&gt;JSON&lt;/l&gt;&#xD;              &lt;block s="reportURL"&gt;&#xD;                &lt;block var="URL"/&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;variables&gt;&#xD;                &lt;variable name="debug"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="start_time"&gt;&#xD;                  &lt;l&gt;1705863638725&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;              &lt;/variables&gt;&#xD;            &lt;/custom-block&gt;&#xD;          &lt;/script&gt;&#xD;          &lt;block s="reportVariadicEquals"&gt;&#xD;            &lt;list&gt;&#xD;              &lt;block var="type"/&gt;&#xD;              &lt;l&gt;List&lt;/l&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;script&gt;&#xD;            &lt;block s="doAddToList"&gt;&#xD;              &lt;block var="URL"/&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;2&lt;/l&gt;&#xD;                  &lt;block s="reportApplyExtension"&gt;&#xD;                    &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                    &lt;list&gt;&#xD;                      &lt;l&gt;📦&lt;/l&gt;&#xD;                    &lt;/list&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/script&gt;&#xD;        &lt;/list&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doAddToList"&gt;&#xD;        &lt;block s="reportJoinWords"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;l&gt;Done in &lt;/l&gt;&#xD;            &lt;block s="reportJoinWords"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;block s="reportDifference"&gt;&#xD;                  &lt;block s="reportDate"&gt;&#xD;                    &lt;l&gt;&#xD;                      &lt;option&gt;time in milliseconds&lt;/option&gt;&#xD;                    &lt;/l&gt;&#xD;                  &lt;/block&gt;&#xD;                  &lt;block var="start_time"/&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;l&gt; ms&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;block s="reportApplyExtension"&gt;&#xD;          &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;          &lt;list&gt;&#xD;            &lt;l&gt;📦log&lt;/l&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;    &lt;scripts&gt;&#xD;      &lt;comment x="471" y="186.7" w="230" collapsed="false"&gt;TODO:&amp;#xD;&amp;#xD;- Check if repository already exists before adding it&amp;#xD;- Fix issue with repeated &amp;quot;Done&amp;quot; messages in log&lt;/comment&gt;&#xD;    &lt;/scripts&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="📦List available packages" type="reporter" category="Snapkg"&gt;&#xD;    &lt;variables&gt;&#xD;      &lt;list struct="atomic" id="102"&gt;a&lt;/list&gt;&#xD;    &lt;/variables&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doSetVar"&gt;&#xD;        &lt;l&gt;a&lt;/l&gt;&#xD;        &lt;block s="reportNewList"&gt;&#xD;          &lt;list&gt;&lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doForEach"&gt;&#xD;        &lt;l&gt;item&lt;/l&gt;&#xD;        &lt;block s="reportListItem"&gt;&#xD;          &lt;l&gt;2&lt;/l&gt;&#xD;          &lt;block s="reportListItem"&gt;&#xD;            &lt;l&gt;3&lt;/l&gt;&#xD;            &lt;block s="reportListItem"&gt;&#xD;              &lt;l&gt;1&lt;/l&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;2&lt;/l&gt;&#xD;                  &lt;block s="reportApplyExtension"&gt;&#xD;                    &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                    &lt;list&gt;&#xD;                      &lt;l&gt;📦&lt;/l&gt;&#xD;                    &lt;/list&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doAddToList"&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;2&lt;/l&gt;&#xD;                  &lt;block s="reportListItem"&gt;&#xD;                    &lt;l&gt;1&lt;/l&gt;&#xD;                    &lt;block var="item"/&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;block var="item"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block var="a"/&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doReport"&gt;&#xD;        &lt;block var="a"/&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;    &lt;scripts&gt;&#xD;      &lt;comment x="469" y="78.69999999999999" w="244" collapsed="false"&gt;TODO:&amp;#xD;&amp;#xD;- List packages from multiple repositories&lt;/comment&gt;&#xD;    &lt;/scripts&gt;&#xD;  &
+lt;/block-definition&gt;&#xD;  &lt;block-definition s="📦Install/update package from %&amp;apos;install_type&amp;apos; %&amp;apos;arg1&amp;apos;" type="command" category="Snapkg"&gt;&#xD;    &lt;variables&gt;&#xD;      &lt;list struct="atomic" id="152"&gt;pkg_sources,pkg_sources_i,debug,source,pkg,pkg_name,start_time,pkg_version,pkg_author,installed_i&lt;/list&gt;&#xD;    &lt;/variables&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s" readonly="true"&gt;URL&lt;options&gt;URL&amp;#xD;JSON&amp;#xD;List&amp;#xD;Name&lt;/options&gt;&#xD;      &lt;/input&gt;&#xD;      &lt;input type="%s"&gt;https://raw.githubusercontent.com/elfin8er/Snapkg/master/packages/snapkg/index.json&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doSetVar"&gt;&#xD;        &lt;l&gt;debug&lt;/l&gt;&#xD;        &lt;block s="reportBoolean"&gt;&#xD;          &lt;l&gt;&#xD;            &lt;bool&gt;true&lt;/bool&gt;&#xD;          &lt;/l&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doIf"&gt;&#xD;        &lt;block var="debug"/&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doIf"&gt;&#xD;            &lt;block s="reportNot"&gt;&#xD;              &lt;block s="reportListContainsItem"&gt;&#xD;                &lt;block s="reportApplyExtension"&gt;&#xD;                  &lt;l&gt;var_names(scope)&lt;/l&gt;&#xD;                  &lt;list&gt;&#xD;                    &lt;l&gt;global&lt;/l&gt;&#xD;                  &lt;/list&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;l&gt;📦log&lt;/l&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;script&gt;&#xD;              &lt;block s="doApplyExtension"&gt;&#xD;                &lt;l&gt;var_declare(scope, name)&lt;/l&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;l&gt;global&lt;/l&gt;&#xD;                  &lt;l&gt;📦log&lt;/l&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;block s="doApplyExtension"&gt;&#xD;                &lt;l&gt;var_set(name, val)&lt;/l&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;l&gt;📦log&lt;/l&gt;&#xD;                  &lt;block s="reportNewList"&gt;&#xD;                    &lt;list&gt;&lt;/list&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/script&gt;&#xD;            &lt;list&gt;&lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="doIf"&gt;&#xD;            &lt;block s="reportNot"&gt;&#xD;              &lt;block s="reportApplyExtension"&gt;&#xD;                &lt;l&gt;var_showing(name)?&lt;/l&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;l&gt;📦log&lt;/l&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;script&gt;&#xD;              &lt;block s="doApplyExtension"&gt;&#xD;                &lt;l&gt;var_show(name)&lt;/l&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;l&gt;📦log&lt;/l&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/script&gt;&#xD;            &lt;list&gt;&lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;        &lt;list&gt;&lt;/list&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doIf"&gt;&#xD;        &lt;block s="reportVariadicEquals"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;block var="install_type"/&gt;&#xD;            &lt;l&gt;JSON&lt;/l&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;custom-block s="📦Install package from %s %s"&gt;&#xD;            &lt;l&gt;List&lt;/l&gt;&#xD;            &lt;block s="reportTextSplit"&gt;&#xD;              &lt;block var="arg1"/&gt;&#xD;              &lt;l&gt;&#xD;                &lt;option&gt;json&lt;/option&gt;&#xD;              &lt;/l&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;variables&gt;&#xD;              &lt;variable name="pkg_sources"&gt;&#xD;                &lt;l&gt;0&lt;/l&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="pkg_sources_i"&gt;&#xD;                &lt;l&gt;0&lt;/l&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="debug"&gt;&#xD;                &lt;bool&gt;true&lt;/bool&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="source"&gt;&#xD;                &lt;l&gt;0&lt;/l&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="pkg"&gt;&#xD;                &lt;list id="229"&gt;&#xD;                  &lt;item&gt;&#xD;                    &lt;list struct="atomic" id="230"&gt;name,websockets&lt;/list&gt;&#xD;                  &lt;/item&gt;&#xD;                  &lt;item&gt;&#xD;                    &lt;list struct="atomic" id="231"&gt;version,1&lt;/list&gt;&#xD;                  &lt;/item&gt;&#xD;                  &lt;item&gt;&#xD;                    &lt;list id="232"&gt;&#xD;                      &lt;item&gt;&#xD;                        &lt;l&gt;author&lt;/l&gt;&#xD;                      &lt;/item&gt;&#xD;                      &lt;item&gt;&#xD;                        &lt;list id="233"&gt;&#xD;                          &lt;item&gt;&#xD;                            &lt;list struct="atomic" id="234"&gt;name,Bailey&lt;/list&gt;&#xD;                          &lt;/item&gt;&#xD;                          &lt;item&gt;&#xD;                            &lt;list struct="atomic" id="235"&gt;username,elfin8er&lt;/list&gt;&#xD;                          &lt;/item&gt;&#xD;                          &lt;item&gt;&#xD;                            &lt;list struct="atomic" id="236"&gt;url,https://snap.berkeley.edu/user?username=elfin8er&lt;/list&gt;&#xD;                          &lt;/item&gt;&#xD;                        &lt;/list&gt;&#xD;                      &lt;/item&gt;&#xD;                    &lt;/list&gt;&#xD;                  &lt;/item&gt;&#xD;                  &lt;item&gt;&#xD;                    &lt;list id="237"&gt;&#xD;                      &lt;item&gt;&#xD;                        &lt;l&gt;sources&lt;/l&gt;&#xD;                      &lt;/item&gt;&#xD;                      &lt;item&gt;&#xD;                        &lt;list id="238"&gt;&#xD;                          &lt;item&gt;&#xD;                            &lt;list id="239"&gt;&#xD;                              &lt;item&gt;&#xD;                                &lt;list struct="atomic" id="240"&gt;url,https://raw.githubusercontent.com/elfin8er/Snapkg/master/packages/websockets/blocks/sensing/blocks.xml&lt;/list&gt;&#xD;                              &lt;/item&gt;&#xD;                              &lt;item&gt;&#xD;                                &lt;list id="241"&gt;&#xD;                                  &lt;item&gt;&#xD;                                    &lt;l&gt;provides&lt;/l&gt;&#xD;                                  &lt;/item&gt;&#xD;                                  &lt;item&gt;&#xD;                                    &lt;list id="242"&gt;&#xD;                                      &lt;item&gt;&#xD;                                        &lt;list id="243"&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="244"&gt;s,new WebSocket ( %&amp;amp;apos;url&amp;amp;apos; )&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="245"&gt;type,reporter&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="246"&gt;category,sensing&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                        &lt;/list&gt;&#xD;                                      &lt;/item&gt;&#xD;                                      &lt;item&gt;&#xD;                                        &lt;list id="247"&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="248"&gt;s,%&amp;amp;apos;ws&amp;amp;apos; .on %&amp;amp;apos;event&amp;amp;apos; do %&amp;amp;apos;callback&amp;amp;apos;&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="249"&gt;type,command&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="250"&gt;category,sensing&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                        &lt;/list&gt;&#xD;                                      &lt;/item&gt;&#xD;                                      &lt;item&gt;&#xD;                                        &lt;list id="251"&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="252"&gt;s,%&amp;amp;apos;ws&amp;amp;apos; .send ( %&amp;amp;apos;message&amp;amp;apos; )&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="253"&gt;type,command&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="254"&gt;category,sensing&lt;/list&gt;&#xD;     
+                                     &lt;/item&gt;&#xD;                                        &lt;/list&gt;&#xD;                                      &lt;/item&gt;&#xD;                                      &lt;item&gt;&#xD;                                        &lt;list id="255"&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="256"&gt;s,%&amp;amp;apos;ws&amp;amp;apos; .close&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="257"&gt;type,command&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                          &lt;item&gt;&#xD;                                            &lt;list struct="atomic" id="258"&gt;category,sensing&lt;/list&gt;&#xD;                                          &lt;/item&gt;&#xD;                                        &lt;/list&gt;&#xD;                                      &lt;/item&gt;&#xD;                                    &lt;/list&gt;&#xD;                                  &lt;/item&gt;&#xD;                                &lt;/list&gt;&#xD;                              &lt;/item&gt;&#xD;                            &lt;/list&gt;&#xD;                          &lt;/item&gt;&#xD;                        &lt;/list&gt;&#xD;                      &lt;/item&gt;&#xD;                    &lt;/list&gt;&#xD;                  &lt;/item&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="pkg_name"&gt;&#xD;                &lt;l&gt;websockets&lt;/l&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="start_time"&gt;&#xD;                &lt;l&gt;0&lt;/l&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="pkg_version"&gt;&#xD;                &lt;l&gt;1&lt;/l&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="pkg_author"&gt;&#xD;                &lt;ref id="233"&gt;&lt;/ref&gt;&#xD;              &lt;/variable&gt;&#xD;              &lt;variable name="installed_i"&gt;&#xD;                &lt;l&gt;0&lt;/l&gt;&#xD;              &lt;/variable&gt;&#xD;            &lt;/variables&gt;&#xD;          &lt;/custom-block&gt;&#xD;        &lt;/script&gt;&#xD;        &lt;list&gt;&#xD;          &lt;block s="reportVariadicEquals"&gt;&#xD;            &lt;list&gt;&#xD;              &lt;block var="install_type"/&gt;&#xD;              &lt;l&gt;URL&lt;/l&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;script&gt;&#xD;            &lt;block s="doSetVar"&gt;&#xD;              &lt;l&gt;start_time&lt;/l&gt;&#xD;              &lt;block s="reportDate"&gt;&#xD;                &lt;l&gt;&#xD;                  &lt;option&gt;time in milliseconds&lt;/option&gt;&#xD;                &lt;/l&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doAddToList"&gt;&#xD;              &lt;block s="reportJoinWords"&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;l&gt;Downloading &lt;/l&gt;&#xD;                  &lt;block var="arg1"/&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;block s="reportApplyExtension"&gt;&#xD;                &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;l&gt;📦log&lt;/l&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;custom-block s="📦Install package from %s %s"&gt;&#xD;              &lt;l&gt;JSON&lt;/l&gt;&#xD;              &lt;block s="reportURL"&gt;&#xD;                &lt;block var="arg1"/&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;variables&gt;&#xD;                &lt;variable name="pkg_sources"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="pkg_sources_i"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="debug"&gt;&#xD;                  &lt;bool&gt;true&lt;/bool&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="source"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="pkg"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="pkg_name"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="start_time"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="pkg_version"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="pkg_author"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;                &lt;variable name="installed_i"&gt;&#xD;                  &lt;l&gt;0&lt;/l&gt;&#xD;                &lt;/variable&gt;&#xD;              &lt;/variables&gt;&#xD;            &lt;/custom-block&gt;&#xD;          &lt;/script&gt;&#xD;          &lt;block s="reportVariadicEquals"&gt;&#xD;            &lt;list&gt;&#xD;              &lt;block var="install_type"/&gt;&#xD;              &lt;l&gt;List&lt;/l&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;script&gt;&#xD;            &lt;block s="doSetVar"&gt;&#xD;              &lt;l&gt;pkg&lt;/l&gt;&#xD;              &lt;block var="arg1"/&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doAddToList"&gt;&#xD;              &lt;block var="pkg"/&gt;&#xD;              &lt;block s="reportApplyExtension"&gt;&#xD;                &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;l&gt;📦log&lt;/l&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doSetVar"&gt;&#xD;              &lt;l&gt;pkg_name&lt;/l&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;1&lt;/l&gt;&#xD;                  &lt;block var="pkg"/&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doSetVar"&gt;&#xD;              &lt;l&gt;pkg_version&lt;/l&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;2&lt;/l&gt;&#xD;                  &lt;block var="pkg"/&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doSetVar"&gt;&#xD;              &lt;l&gt;pkg_author&lt;/l&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;3&lt;/l&gt;&#xD;                  &lt;block var="pkg"/&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doDeclareVariables"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;found&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doSetVar"&gt;&#xD;              &lt;l&gt;found&lt;/l&gt;&#xD;              &lt;block s="reportBoolean"&gt;&#xD;                &lt;l&gt;&#xD;                  &lt;bool&gt;false&lt;/bool&gt;&#xD;                &lt;/l&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doForEach"&gt;&#xD;              &lt;l&gt;item&lt;/l&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;1&lt;/l&gt;&#xD;                  &lt;block s="reportApplyExtension"&gt;&#xD;                    &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                    &lt;list&gt;&#xD;                      &lt;l&gt;📦&lt;/l&gt;&#xD;                    &lt;/list&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;script&gt;&#xD;                &lt;block s="doAddToList"&gt;&#xD;                  &lt;block var="item"/&gt;&#xD;                  &lt;block s="reportApplyExtension"&gt;&#xD;                    &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                    &lt;list&gt;&#xD;                      &lt;l&gt;📦log&lt;/l&gt;&#xD;                    &lt;/list&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;block s="doIf"&gt;&#xD;                  &lt;block s="reportVariadicEquals"&gt;&#xD;                    &lt;list&gt;&#xD;                      &lt;block s="reportListItem"&gt;&#xD;                        &lt;l&gt;2&lt;/l&gt;&#xD;                        &lt;block s="reportListItem"&gt;&#xD;                          &lt;l&gt;1&lt;/l&gt;&#xD;                          &lt;block var="item"/&gt;&#xD;                        &lt;/block&gt;&#xD;                      &lt;/block&gt;&#xD;                      &lt;block var="pkg_name"/&gt;&#xD;                    &lt;/list&gt;&#xD;                  &lt;/block&gt;&#xD;                  &lt;script&gt;&#xD;                    &lt;block s="doSetVar"&gt;&#xD;                      &lt;l&gt;found&lt;/l&gt;&#xD;                      &lt;block s="reportBoolean"&gt;&#xD;                        &lt;l&gt;&#xD;                          &lt;bool&gt;true&lt;/bool&gt;&#xD;                        &lt;/l&gt;&#xD;                      &
+lt;/block&gt;&#xD;                    &lt;/block&gt;&#xD;                    &lt;block s="doAddToList"&gt;&#xD;                      &lt;block s="reportJoinWords"&gt;&#xD;                        &lt;list&gt;&#xD;                          &lt;l&gt;Package &amp;apos;&lt;/l&gt;&#xD;                          &lt;block s="reportListItem"&gt;&#xD;                            &lt;l&gt;2&lt;/l&gt;&#xD;                            &lt;block s="reportListItem"&gt;&#xD;                              &lt;l&gt;1&lt;/l&gt;&#xD;                              &lt;block var="item"/&gt;&#xD;                            &lt;/block&gt;&#xD;                          &lt;/block&gt;&#xD;                          &lt;l&gt;&amp;apos; is already installed.&lt;/l&gt;&#xD;                        &lt;/list&gt;&#xD;                      &lt;/block&gt;&#xD;                      &lt;block s="reportApplyExtension"&gt;&#xD;                        &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                        &lt;list&gt;&#xD;                          &lt;l&gt;📦log&lt;/l&gt;&#xD;                        &lt;/list&gt;&#xD;                      &lt;/block&gt;&#xD;                    &lt;/block&gt;&#xD;                    &lt;block s="doIf"&gt;&#xD;                      &lt;block s="reportVariadicGreaterThan"&gt;&#xD;                        &lt;list&gt;&#xD;                          &lt;block var="pkg_version"/&gt;&#xD;                          &lt;block s="reportListItem"&gt;&#xD;                            &lt;l&gt;2&lt;/l&gt;&#xD;                            &lt;block s="reportListItem"&gt;&#xD;                              &lt;l&gt;2&lt;/l&gt;&#xD;                              &lt;block var="item"/&gt;&#xD;                            &lt;/block&gt;&#xD;                          &lt;/block&gt;&#xD;                        &lt;/list&gt;&#xD;                      &lt;/block&gt;&#xD;                      &lt;script&gt;&#xD;                        &lt;block s="doAddToList"&gt;&#xD;                          &lt;block s="reportJoinWords"&gt;&#xD;                            &lt;list&gt;&#xD;                              &lt;l&gt;Update available! Installing &lt;/l&gt;&#xD;                              &lt;block var="pkg_name"/&gt;&#xD;                              &lt;l&gt; vers &lt;/l&gt;&#xD;                              &lt;block var="pkg_version"/&gt;&#xD;                              &lt;l&gt; by &lt;/l&gt;&#xD;                              &lt;block s="reportListItem"&gt;&#xD;                                &lt;l&gt;2&lt;/l&gt;&#xD;                                &lt;block s="reportListItem"&gt;&#xD;                                  &lt;l&gt;1&lt;/l&gt;&#xD;                                  &lt;block var="pkg_author"/&gt;&#xD;                                &lt;/block&gt;&#xD;                              &lt;/block&gt;&#xD;                            &lt;/list&gt;&#xD;                          &lt;/block&gt;&#xD;                          &lt;block s="reportApplyExtension"&gt;&#xD;                            &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                            &lt;list&gt;&#xD;                              &lt;l&gt;📦log&lt;/l&gt;&#xD;                            &lt;/list&gt;&#xD;                          &lt;/block&gt;&#xD;                        &lt;/block&gt;&#xD;                        &lt;custom-block s="📦Import package %s"&gt;&#xD;                          &lt;block var="pkg"/&gt;&#xD;                          &lt;variables&gt;&#xD;                            &lt;variable name="pkg_sources"&gt;&#xD;                              &lt;l&gt;0&lt;/l&gt;&#xD;                            &lt;/variable&gt;&#xD;                            &lt;variable name="source"&gt;&#xD;                              &lt;l&gt;0&lt;/l&gt;&#xD;                            &lt;/variable&gt;&#xD;                          &lt;/variables&gt;&#xD;                        &lt;/custom-block&gt;&#xD;                        &lt;custom-block s="📦Add package %s"&gt;&#xD;                          &lt;block var="pkg"/&gt;&#xD;                          &lt;variables&gt;&#xD;                            &lt;variable name="pkg_name"&gt;&#xD;                              &lt;l&gt;0&lt;/l&gt;&#xD;                            &lt;/variable&gt;&#xD;                          &lt;/variables&gt;&#xD;                        &lt;/custom-block&gt;&#xD;                      &lt;/script&gt;&#xD;                      &lt;list&gt;&lt;/list&gt;&#xD;                    &lt;/block&gt;&#xD;                    &lt;block s="doAddToList"&gt;&#xD;                      &lt;block s="reportJoinWords"&gt;&#xD;                        &lt;list&gt;&#xD;                          &lt;l&gt;Done in &lt;/l&gt;&#xD;                          &lt;block s="reportJoinWords"&gt;&#xD;                            &lt;list&gt;&#xD;                              &lt;block s="reportDifference"&gt;&#xD;                                &lt;block s="reportDate"&gt;&#xD;                                  &lt;l&gt;&#xD;                                    &lt;option&gt;time in milliseconds&lt;/option&gt;&#xD;                                  &lt;/l&gt;&#xD;                                &lt;/block&gt;&#xD;                                &lt;block var="start_time"/&gt;&#xD;                              &lt;/block&gt;&#xD;                              &lt;l&gt; ms&lt;/l&gt;&#xD;                            &lt;/list&gt;&#xD;                          &lt;/block&gt;&#xD;                        &lt;/list&gt;&#xD;                      &lt;/block&gt;&#xD;                      &lt;block s="reportApplyExtension"&gt;&#xD;                        &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                        &lt;list&gt;&#xD;                          &lt;l&gt;📦log&lt;/l&gt;&#xD;                        &lt;/list&gt;&#xD;                      &lt;/block&gt;&#xD;                    &lt;/block&gt;&#xD;                    &lt;block s="doStopThis"&gt;&#xD;                      &lt;l&gt;&#xD;                        &lt;option&gt;this script&lt;/option&gt;&#xD;                      &lt;/l&gt;&#xD;                    &lt;/block&gt;&#xD;                  &lt;/script&gt;&#xD;                  &lt;list&gt;&lt;/list&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/script&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doIf"&gt;&#xD;              &lt;block s="reportNot"&gt;&#xD;                &lt;block var="found"/&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;script&gt;&#xD;                &lt;custom-block s="📦Import package %s"&gt;&#xD;                  &lt;block var="pkg"/&gt;&#xD;                  &lt;variables&gt;&#xD;                    &lt;variable name="pkg_sources"&gt;&#xD;                      &lt;list id="490"&gt;&#xD;                        &lt;item&gt;&#xD;                          &lt;list id="491"&gt;&#xD;                            &lt;item&gt;&#xD;                              &lt;list struct="atomic" id="492"&gt;url,https://raw.githubusercontent.com/elfin8er/Snapkg/master/packages/websockets/blocks/sensing/blocks.xml&lt;/list&gt;&#xD;                            &lt;/item&gt;&#xD;                            &lt;item&gt;&#xD;                              &lt;list id="493"&gt;&#xD;                                &lt;item&gt;&#xD;                                  &lt;l&gt;provides&lt;/l&gt;&#xD;                                &lt;/item&gt;&#xD;                                &lt;item&gt;&#xD;                                  &lt;list id="494"&gt;&#xD;                                    &lt;item&gt;&#xD;                                      &lt;list id="495"&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="496"&gt;s,new WebSocket ( %&amp;amp;apos;url&amp;amp;apos; )&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="497"&gt;type,reporter&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="498"&gt;category,sensing&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                      &lt;/list&gt;&#xD;                                    &lt;/item&gt;&#xD;                                    &lt;item&gt;&#xD;                                      &lt;list id="499"&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="500"&gt;s,%&amp;amp;apos;ws&amp;amp;apos; .on %&amp;amp;apos;event&amp;amp;apos; do %&amp;amp;apos;callback&amp;amp;apos;&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="501"&gt;type,command&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="502"&gt;category,sensing&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                      &lt;/list&gt;&#xD;                                    &lt;/item&gt;&#xD;                                    &lt;item&gt;&#xD;                                      &lt;list id="503"&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="504"&gt;s,%&amp;amp;apos;ws&amp;amp;apos; .send ( %&amp;amp;apos;message&amp;amp;apos; )&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="505"&gt;type,
+command&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="506"&gt;category,sensing&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                      &lt;/list&gt;&#xD;                                    &lt;/item&gt;&#xD;                                    &lt;item&gt;&#xD;                                      &lt;list id="507"&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="508"&gt;s,%&amp;amp;apos;ws&amp;amp;apos; .close&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="509"&gt;type,command&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                        &lt;item&gt;&#xD;                                          &lt;list struct="atomic" id="510"&gt;category,sensing&lt;/list&gt;&#xD;                                        &lt;/item&gt;&#xD;                                      &lt;/list&gt;&#xD;                                    &lt;/item&gt;&#xD;                                  &lt;/list&gt;&#xD;                                &lt;/item&gt;&#xD;                              &lt;/list&gt;&#xD;                            &lt;/item&gt;&#xD;                          &lt;/list&gt;&#xD;                        &lt;/item&gt;&#xD;                      &lt;/list&gt;&#xD;                    &lt;/variable&gt;&#xD;                    &lt;variable name="source"&gt;&#xD;                      &lt;l&gt;&amp;lt;blocks app="Snap! 9.0, https://snap.berkeley.edu" version="2"&amp;gt;&amp;#xD;  &amp;lt;block-definition s="new WebSocket ( %&amp;amp;apos;url&amp;amp;apos; )" type="reporter" category="sensing"&amp;gt;&amp;#xD;    &amp;lt;header&amp;gt;&amp;lt;/header&amp;gt;&amp;#xD;    &amp;lt;code&amp;gt;&amp;lt;/code&amp;gt;&amp;#xD;    &amp;lt;translations&amp;gt;&amp;lt;/translations&amp;gt;&amp;#xD;    &amp;lt;inputs&amp;gt;&amp;#xD;      &amp;lt;input type="%s"&amp;gt;wss://ws.postman-echo.com/raw&amp;lt;/input&amp;gt;&amp;#xD;    &amp;lt;/inputs&amp;gt;&amp;#xD;    &amp;lt;script&amp;gt;&amp;#xD;      &amp;lt;block s="doReport"&amp;gt;&amp;#xD;        &amp;lt;block s="evaluate"&amp;gt;&amp;#xD;          &amp;lt;block s="reportJSFunction"&amp;gt;&amp;#xD;            &amp;lt;list&amp;gt;&amp;#xD;              &amp;lt;l&amp;gt;url&amp;lt;/l&amp;gt;&amp;#xD;            &amp;lt;/list&amp;gt;&amp;#xD;            &amp;lt;l&amp;gt;return new WebSocket(url)&amp;lt;/l&amp;gt;&amp;#xD;          &amp;lt;/block&amp;gt;&amp;#xD;          &amp;lt;list&amp;gt;&amp;#xD;            &amp;lt;block var="url"/&amp;gt;&amp;#xD;          &amp;lt;/list&amp;gt;&amp;#xD;        &amp;lt;/block&amp;gt;&amp;#xD;      &amp;lt;/block&amp;gt;&amp;#xD;    &amp;lt;/script&amp;gt;&amp;#xD;  &amp;lt;/block-definition&amp;gt;&amp;#xD;  &amp;lt;block-definition s="%&amp;amp;apos;ws&amp;amp;apos; .send ( %&amp;amp;apos;message&amp;amp;apos; )" type="command" category="sensing"&amp;gt;&amp;#xD;    &amp;lt;header&amp;gt;&amp;lt;/header&amp;gt;&amp;#xD;    &amp;lt;code&amp;gt;&amp;lt;/code&amp;gt;&amp;#xD;    &amp;lt;translations&amp;gt;&amp;lt;/translations&amp;gt;&amp;#xD;    &amp;lt;inputs&amp;gt;&amp;#xD;      &amp;lt;input type="%s"&amp;gt;ws&amp;lt;/input&amp;gt;&amp;#xD;      &amp;lt;input type="%s"&amp;gt;&amp;lt;/input&amp;gt;&amp;#xD;    &amp;lt;/inputs&amp;gt;&amp;#xD;    &amp;lt;script&amp;gt;&amp;#xD;      &amp;lt;block s="doReport"&amp;gt;&amp;#xD;        &amp;lt;block s="evaluate"&amp;gt;&amp;#xD;          &amp;lt;block s="reportJSFunction"&amp;gt;&amp;#xD;            &amp;lt;list&amp;gt;&amp;#xD;              &amp;lt;l&amp;gt;ws&amp;lt;/l&amp;gt;&amp;#xD;              &amp;lt;l&amp;gt;message&amp;lt;/l&amp;gt;&amp;#xD;            &amp;lt;/list&amp;gt;&amp;#xD;            &amp;lt;l&amp;gt;ws.send(message);&amp;lt;/l&amp;gt;&amp;#xD;          &amp;lt;/block&amp;gt;&amp;#xD;          &amp;lt;list&amp;gt;&amp;#xD;            &amp;lt;block var="ws"/&amp;gt;&amp;#xD;            &amp;lt;block var="message"/&amp;gt;&amp;#xD;          &amp;lt;/list&amp;gt;&amp;#xD;        &amp;lt;/block&amp;gt;&amp;#xD;      &amp;lt;/block&amp;gt;&amp;#xD;    &amp;lt;/script&amp;gt;&amp;#xD;  &amp;lt;/block-definition&amp;gt;&amp;#xD;  &amp;lt;block-definition s="%&amp;amp;apos;ws&amp;amp;apos; .on %&amp;amp;apos;event&amp;amp;apos; do %&amp;amp;apos;callback&amp;amp;apos;" type="command" category="sensing"&amp;gt;&amp;#xD;    &amp;lt;header&amp;gt;&amp;lt;/header&amp;gt;&amp;#xD;    &amp;lt;code&amp;gt;&amp;lt;/code&amp;gt;&amp;#xD;    &amp;lt;translations&amp;gt;&amp;lt;/translations&amp;gt;&amp;#xD;    &amp;lt;inputs&amp;gt;&amp;#xD;      &amp;lt;input type="%s"&amp;gt;ws&amp;lt;/input&amp;gt;&amp;#xD;      &amp;lt;input type="%s"&amp;gt;message&amp;lt;options&amp;gt;message&amp;amp;#xD;open&amp;amp;#xD;close&amp;amp;#xD;error&amp;lt;/options&amp;gt;&amp;lt;/input&amp;gt;&amp;#xD;      &amp;lt;input type="%cmdRing"&amp;gt;&amp;lt;/input&amp;gt;&amp;#xD;    &amp;lt;/inputs&amp;gt;&amp;#xD;    &amp;lt;script&amp;gt;&amp;#xD;      &amp;lt;block s="doIf"&amp;gt;&amp;#xD;        &amp;lt;block s="reportVariadicEquals"&amp;gt;&amp;#xD;          &amp;lt;list&amp;gt;&amp;#xD;            &amp;lt;block var="event"/&amp;gt;&amp;#xD;            &amp;lt;l&amp;gt;open&amp;lt;/l&amp;gt;&amp;#xD;          &amp;lt;/list&amp;gt;&amp;#xD;        &amp;lt;/block&amp;gt;&amp;#xD;        &amp;lt;script&amp;gt;&amp;#xD;          &amp;lt;block s="doRun"&amp;gt;&amp;#xD;            &amp;lt;block s="reportJSFunction"&amp;gt;&amp;#xD;              &amp;lt;list&amp;gt;&amp;#xD;                &amp;lt;l&amp;gt;ws&amp;lt;/l&amp;gt;&amp;#xD;                &amp;lt;l&amp;gt;cb&amp;lt;/l&amp;gt;&amp;#xD;              &amp;lt;/list&amp;gt;&amp;#xD;              &amp;lt;l&amp;gt;ws.onopen = (event) =&amp;amp;gt; {&amp;amp;#xD;  console.log(event);&amp;amp;#xD;  const process = new Process(null,cb.receiver, null, true);&amp;amp;#xD;  process.initializeFor(cb, new List([event]));&amp;amp;#xD;  cb.receiver.parent.threads.processes.push(process);&amp;amp;#xD;};&amp;lt;/l&amp;gt;&amp;#xD;            &amp;lt;/block&amp;gt;&amp;#xD;            &amp;lt;list&amp;gt;&amp;#xD;              &amp;lt;block var="ws"/&amp;gt;&amp;#xD;              &amp;lt;block var="callback"/&amp;gt;&amp;#xD;            &amp;lt;/list&amp;gt;&amp;#xD;          &amp;lt;/block&amp;gt;&amp;#xD;        &amp;lt;/script&amp;gt;&amp;#xD;        &amp;lt;list&amp;gt;&amp;#xD;          &amp;lt;block s="reportVariadicEquals"&amp;gt;&amp;#xD;            &amp;lt;list&amp;gt;&amp;#xD;              &amp;lt;block var="event"/&amp;gt;&amp;#xD;              &amp;lt;l&amp;gt;close&amp;lt;/l&amp;gt;&amp;#xD;            &amp;lt;/list&amp;gt;&amp;#xD;          &amp;lt;/block&amp;gt;&amp;#xD;          &amp;lt;script&amp;gt;&amp;#xD;            &amp;lt;block s="doRun"&amp;gt;&amp;#xD;              &amp;lt;block s="reportJSFunction"&amp;gt;&amp;#xD;                &amp;lt;list&amp;gt;&amp;#xD;                  &amp;lt;l&amp;gt;ws&amp;lt;/l&amp;gt;&amp;#xD;                  &amp;lt;l&amp;gt;cb&amp;lt;/l&amp;gt;&amp;#xD;                &amp;lt;/list&amp;gt;&amp;#xD;                &amp;lt;l&amp;gt;ws.onclose = (event) =&amp;amp;gt; {&amp;amp;#xD;  console.log(event);&amp;amp;#xD;  const process = new Process(null,cb.receiver, null, true);&amp;amp;#xD;  process.initializeFor(cb, new List([event]));&amp;amp;#xD;  cb.receiver.parent.threads.processes.push(process);&amp;amp;#xD;};&amp;lt;/l&amp;gt;&amp;#xD;              &amp;lt;/block&amp;gt;&amp;#xD;              &amp;lt;list&amp;gt;&amp;#xD;                &amp;lt;block var="ws"/&amp;gt;&amp;#xD;                &amp;lt;block var="callback"/&amp;gt;&amp;#xD;              &amp;lt;/list&amp;gt;&amp;#xD;            &amp;lt;/block&amp;gt;&amp;#xD;          &amp;lt;/script&amp;gt;&amp;#xD;          &amp;lt;block s="reportVariadicEquals"&amp;gt;&amp;#xD;            &amp;lt;list&amp;gt;&amp;#xD;              &amp;lt;block var="event"/&amp;gt;&amp;#xD;              &amp;lt;l&amp;gt;message&amp;lt;/l&amp;gt;&amp;#xD;            &amp;lt;/list&amp;gt;&amp;#xD;          &amp;lt;/block&amp;gt;&amp;#xD;          &amp;lt;script&amp;gt;&amp;#xD;            &amp;lt;block s="doRun"&amp;gt;&amp;#xD;              &amp;lt;block s="reportJSFunction"&amp;gt;&amp;#xD;                &amp;lt;list&amp;gt;&amp;#xD;                  &amp;lt;l&amp;gt;ws&amp;lt;/l&amp;gt;&amp;#xD;                  &amp;lt;l&amp;gt;cb&amp;lt;/l&amp;gt;&amp;#xD;                &amp;lt;/list&amp;gt;&amp;#xD;                &amp;lt;l&amp;gt;ws.onmessage = (event) =&amp;amp;gt; {&amp;amp;#xD;  console.log(event);&amp;amp;#xD;  const process = new Process(null,cb.receiver, null, true);&amp;amp;#xD;  process.initializeFor(cb, new List([event.data]));&amp;amp;#xD;  cb.receiver.parent.threads.processes.push(process);&amp;amp;#xD;};&amp;lt;/l&amp;gt;&amp;#xD;              &amp;lt;/block&amp;gt;&amp;#xD;              &amp;lt;list&amp;gt;&amp;#xD;                &amp;lt;block var="ws"/&amp;gt;&amp;#xD;                &amp;lt;block var="callback"/&amp;gt;&amp;#xD;              &amp;lt;/list&amp;gt;&amp;#xD;            &amp;lt;/block&amp;gt;&amp;#xD;          &amp;lt;/script&amp;gt;&amp;#xD;          &amp;lt;block s="reportVariadicEquals"&amp;gt;&amp;#xD;            &amp;lt;list&amp;gt;&amp;#xD;              &amp;lt;l&amp;gt;&amp;lt;/l&amp;gt;&amp;#xD;              &amp;lt;l&amp;gt;error&amp;lt;/l&amp;gt;&amp;#xD;            &amp;lt;/list&amp;gt;&amp;#xD;          &amp;lt;/block&amp;gt;&amp;#xD;          &amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;&amp;#xD;        &amp;lt;/list&amp;gt;&amp;#xD;      &amp;lt;/block&amp;gt;&amp;#xD;    &amp;lt;/script&amp;gt;&amp;#xD;  &amp;lt;/block-definition&amp;
+gt;&amp;#xD;  &amp;lt;block-definition s="%&amp;amp;apos;ws&amp;amp;apos; .close" type="command" category="sensing"&amp;gt;&amp;#xD;    &amp;lt;header&amp;gt;&amp;lt;/header&amp;gt;&amp;#xD;    &amp;lt;code&amp;gt;&amp;lt;/code&amp;gt;&amp;#xD;    &amp;lt;translations&amp;gt;&amp;lt;/translations&amp;gt;&amp;#xD;    &amp;lt;inputs&amp;gt;&amp;#xD;      &amp;lt;input type="%s"&amp;gt;ws&amp;lt;/input&amp;gt;&amp;#xD;    &amp;lt;/inputs&amp;gt;&amp;#xD;    &amp;lt;script&amp;gt;&amp;#xD;      &amp;lt;block s="doRun"&amp;gt;&amp;#xD;        &amp;lt;block s="reportJSFunction"&amp;gt;&amp;#xD;          &amp;lt;list&amp;gt;&amp;#xD;            &amp;lt;l&amp;gt;ws&amp;lt;/l&amp;gt;&amp;#xD;          &amp;lt;/list&amp;gt;&amp;#xD;          &amp;lt;l&amp;gt;ws.close();&amp;lt;/l&amp;gt;&amp;#xD;        &amp;lt;/block&amp;gt;&amp;#xD;        &amp;lt;list&amp;gt;&amp;#xD;          &amp;lt;block var="ws"/&amp;gt;&amp;#xD;        &amp;lt;/list&amp;gt;&amp;#xD;      &amp;lt;/block&amp;gt;&amp;#xD;    &amp;lt;/script&amp;gt;&amp;#xD;  &amp;lt;/block-definition&amp;gt;&amp;#xD;&amp;lt;/blocks&amp;gt;&lt;/l&gt;&#xD;                    &lt;/variable&gt;&#xD;                  &lt;/variables&gt;&#xD;                &lt;/custom-block&gt;&#xD;                &lt;custom-block s="📦Add package %s"&gt;&#xD;                  &lt;block var="pkg"/&gt;&#xD;                  &lt;variables&gt;&#xD;                    &lt;variable name="pkg_name"&gt;&#xD;                      &lt;l&gt;websockets&lt;/l&gt;&#xD;                    &lt;/variable&gt;&#xD;                  &lt;/variables&gt;&#xD;                &lt;/custom-block&gt;&#xD;              &lt;/script&gt;&#xD;              &lt;list&gt;&lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/script&gt;&#xD;        &lt;/list&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;    &lt;scripts&gt;&#xD;      &lt;comment x="594" y="109.69999999999999" w="185" collapsed="false"&gt;&amp;#xD;&amp;#xD;TODO:&amp;#xD;X Check if package is already installed&amp;#xD;- Resolve dependencies&amp;#xD;- Warn user about untrusted code&amp;#xD;- Handle sources other than xml&amp;#xD;&lt;/comment&gt;&#xD;    &lt;/scripts&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="📦Uninstall package from %&amp;apos;type&amp;apos; %&amp;apos;URL&amp;apos;" type="command" category="Snapkg"&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s" readonly="true"&gt;URL&lt;options&gt;URL&amp;#xD;JSON&lt;/options&gt;&#xD;      &lt;/input&gt;&#xD;      &lt;input type="%s"&gt;&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doIf"&gt;&#xD;        &lt;block s="reportVariadicEquals"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;block var="type"/&gt;&#xD;            &lt;l&gt;JSON&lt;/l&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;custom-block s="📦Delete package from %s %s"&gt;&#xD;            &lt;l&gt;JSON&lt;/l&gt;&#xD;            &lt;block var="URL"/&gt;&#xD;          &lt;/custom-block&gt;&#xD;          &lt;custom-block s="📦Remove package from %s %s"&gt;&#xD;            &lt;l&gt;JSON&lt;/l&gt;&#xD;            &lt;block var="URL"/&gt;&#xD;          &lt;/custom-block&gt;&#xD;        &lt;/script&gt;&#xD;        &lt;list&gt;&#xD;          &lt;block s="reportVariadicEquals"&gt;&#xD;            &lt;list&gt;&#xD;              &lt;block var="type"/&gt;&#xD;              &lt;l&gt;URL&lt;/l&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;script&gt;&#xD;            &lt;custom-block s="📦Uninstall package from %s %s"&gt;&#xD;              &lt;l&gt;JSON&lt;/l&gt;&#xD;              &lt;block s="reportTextSplit"&gt;&#xD;                &lt;block s="reportURL"&gt;&#xD;                  &lt;block var="URL"/&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;l&gt;&#xD;                  &lt;option&gt;json&lt;/option&gt;&#xD;                &lt;/l&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/custom-block&gt;&#xD;          &lt;/script&gt;&#xD;        &lt;/list&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="📦List installed packages" type="reporter" category="Snapkg"&gt;&#xD;    &lt;variables&gt;&#xD;      &lt;list struct="atomic" id="551"&gt;a&lt;/list&gt;&#xD;    &lt;/variables&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doSetVar"&gt;&#xD;        &lt;l&gt;a&lt;/l&gt;&#xD;        &lt;block s="reportNewList"&gt;&#xD;          &lt;list&gt;&lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doForEach"&gt;&#xD;        &lt;l&gt;item&lt;/l&gt;&#xD;        &lt;block s="reportListItem"&gt;&#xD;          &lt;l&gt;2&lt;/l&gt;&#xD;          &lt;block s="reportListItem"&gt;&#xD;            &lt;l&gt;1&lt;/l&gt;&#xD;            &lt;block s="reportApplyExtension"&gt;&#xD;              &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;📦&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doAddToList"&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;2&lt;/l&gt;&#xD;                  &lt;block s="reportListItem"&gt;&#xD;                    &lt;l&gt;1&lt;/l&gt;&#xD;                    &lt;block var="item"/&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;block var="item"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block var="a"/&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doReport"&gt;&#xD;        &lt;block var="a"/&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="=== Advanced $arrowDown ===" type="reporter" category="Snapkg"&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&lt;/inputs&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="📦Add package %&amp;apos;pkg&amp;apos;" type="command" category="Snapkg"&gt;&#xD;    &lt;variables&gt;&#xD;      &lt;list struct="atomic" id="593"&gt;pkg_name&lt;/list&gt;&#xD;    &lt;/variables&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s"&gt;pkg&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doSetVar"&gt;&#xD;        &lt;l&gt;pkg_name&lt;/l&gt;&#xD;        &lt;block s="reportListItem"&gt;&#xD;          &lt;l&gt;2&lt;/l&gt;&#xD;          &lt;block s="reportListItem"&gt;&#xD;            &lt;l&gt;1&lt;/l&gt;&#xD;            &lt;block var="pkg"/&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doDeclareVariables"&gt;&#xD;        &lt;list&gt;&#xD;          &lt;l&gt;i&lt;/l&gt;&#xD;          &lt;l&gt;found&lt;/l&gt;&#xD;        &lt;/list&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doSetVar"&gt;&#xD;        &lt;l&gt;i&lt;/l&gt;&#xD;        &lt;l&gt;1&lt;/l&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doForEach"&gt;&#xD;        &lt;l&gt;item&lt;/l&gt;&#xD;        &lt;block s="reportListItem"&gt;&#xD;          &lt;l&gt;2&lt;/l&gt;&#xD;          &lt;block s="reportListItem"&gt;&#xD;            &lt;l&gt;1&lt;/l&gt;&#xD;            &lt;block s="reportApplyExtension"&gt;&#xD;              &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;📦&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doIf"&gt;&#xD;            &lt;block s="reportVariadicEquals"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;2&lt;/l&gt;&#xD;                  &lt;block s="reportListItem"&gt;&#xD;                    &lt;l&gt;1&lt;/l&gt;&#xD;                    &lt;block var="item"/&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;block var="pkg_name"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;script&gt;&#xD;              &lt;block s="doReplaceInList"&gt;&#xD;                &lt;block var="i"/&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;2&lt;/l&gt;&#xD;                  &lt;block s="reportListItem"&gt;&#xD;                    &lt;l&gt;1&lt;/l&gt;&#xD;                    &lt;block s="reportApplyExtension"&gt;&#xD;                      &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                      &lt;list&gt;&#xD;                        &lt;l&gt;📦&lt;/l&gt;&#xD;                      &lt;/list&gt;&#xD;                    &lt;/block&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;block var="pkg"/&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;block s="doSetVar"&gt;&#xD;                &lt;l&gt;found&lt;/l&gt;&#xD;                &lt;block s="reportBoolean"&gt;&#xD;                  &lt;l&gt;&#xD;                    &lt;bool&gt;true&lt;/bool&gt;&#xD;                  &lt;/l&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;block s="doStopThis"&gt;&#xD;               
+ &lt;l&gt;&#xD;                  &lt;option&gt;this block&lt;/option&gt;&#xD;                &lt;/l&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/script&gt;&#xD;            &lt;list&gt;&lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="doChangeVar"&gt;&#xD;            &lt;l&gt;i&lt;/l&gt;&#xD;            &lt;l&gt;1&lt;/l&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doIf"&gt;&#xD;        &lt;block s="reportNot"&gt;&#xD;          &lt;block var="found"/&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doAddToList"&gt;&#xD;            &lt;block var="pkg"/&gt;&#xD;            &lt;block s="reportListItem"&gt;&#xD;              &lt;l&gt;2&lt;/l&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;1&lt;/l&gt;&#xD;                &lt;block s="reportApplyExtension"&gt;&#xD;                  &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;                  &lt;list&gt;&#xD;                    &lt;l&gt;📦&lt;/l&gt;&#xD;                  &lt;/list&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;        &lt;list&gt;&lt;/list&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;    &lt;scripts&gt;&#xD;      &lt;comment x="397" y="27.69999999999999" w="176" collapsed="false"&gt;Adds a package to the package manager without actually importing it&lt;/comment&gt;&#xD;    &lt;/scripts&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="📦Import package %&amp;apos;pkg&amp;apos;" type="command" category="Snapkg"&gt;&#xD;    &lt;variables&gt;&#xD;      &lt;list struct="atomic" id="693"&gt;pkg_sources,source&lt;/list&gt;&#xD;    &lt;/variables&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s"&gt;pkg&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doSetVar"&gt;&#xD;        &lt;l&gt;pkg_sources&lt;/l&gt;&#xD;        &lt;block s="reportListItem"&gt;&#xD;          &lt;l&gt;2&lt;/l&gt;&#xD;          &lt;block s="reportListItem"&gt;&#xD;            &lt;l&gt;4&lt;/l&gt;&#xD;            &lt;block var="pkg"/&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doForEach"&gt;&#xD;        &lt;l&gt;item&lt;/l&gt;&#xD;        &lt;block var="pkg_sources"/&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doAddToList"&gt;&#xD;            &lt;block var="item"/&gt;&#xD;            &lt;block s="reportApplyExtension"&gt;&#xD;              &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;📦log&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="doSetVar"&gt;&#xD;            &lt;l&gt;source&lt;/l&gt;&#xD;            &lt;block s="reportURL"&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;1&lt;/l&gt;&#xD;                  &lt;block var="item"/&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="doAddToList"&gt;&#xD;            &lt;l&gt;Importing source&lt;/l&gt;&#xD;            &lt;block s="reportApplyExtension"&gt;&#xD;              &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;📦log&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="doAddToList"&gt;&#xD;            &lt;block var="source"/&gt;&#xD;            &lt;block s="reportApplyExtension"&gt;&#xD;              &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;📦log&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="doRun"&gt;&#xD;            &lt;block s="reportJSFunction"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;xmlString&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;              &lt;l&gt;this.parentThatIsA(IDE_Morph).rawOpenBlocksString(xmlString, "block", true)&lt;/l&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;list&gt;&#xD;              &lt;block var="source"/&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;    &lt;scripts&gt;&#xD;      &lt;script x="51" y="474.53333333333376"&gt;&#xD;        &lt;block s="doDeclareVariables"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;l&gt;i&lt;/l&gt;&#xD;            &lt;l&gt;found&lt;/l&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;block s="doSetVar"&gt;&#xD;          &lt;l&gt;i&lt;/l&gt;&#xD;          &lt;l&gt;1&lt;/l&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;block s="doForEach"&gt;&#xD;          &lt;l&gt;item&lt;/l&gt;&#xD;          &lt;block s="reportListItem"&gt;&#xD;            &lt;l&gt;2&lt;/l&gt;&#xD;            &lt;block s="reportListItem"&gt;&#xD;              &lt;l&gt;1&lt;/l&gt;&#xD;              &lt;block var="📦"/&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;script&gt;&#xD;            &lt;block s="doIf"&gt;&#xD;              &lt;block s="reportVariadicEquals"&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;block s="reportListItem"&gt;&#xD;                    &lt;l&gt;2&lt;/l&gt;&#xD;                    &lt;block s="reportListItem"&gt;&#xD;                      &lt;l&gt;1&lt;/l&gt;&#xD;                      &lt;block var="item"/&gt;&#xD;                    &lt;/block&gt;&#xD;                  &lt;/block&gt;&#xD;                  &lt;block var="pkg_name"/&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;script&gt;&#xD;                &lt;block s="doReplaceInList"&gt;&#xD;                  &lt;block var="i"/&gt;&#xD;                  &lt;block s="reportListItem"&gt;&#xD;                    &lt;l&gt;2&lt;/l&gt;&#xD;                    &lt;block s="reportListItem"&gt;&#xD;                      &lt;l&gt;1&lt;/l&gt;&#xD;                      &lt;block var="📦"/&gt;&#xD;                    &lt;/block&gt;&#xD;                  &lt;/block&gt;&#xD;                  &lt;block var="pkg"/&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;block s="doSetVar"&gt;&#xD;                  &lt;l&gt;found&lt;/l&gt;&#xD;                  &lt;block s="reportBoolean"&gt;&#xD;                    &lt;l&gt;&#xD;                      &lt;bool&gt;true&lt;/bool&gt;&#xD;                    &lt;/l&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;block s="doStopThis"&gt;&#xD;                  &lt;l&gt;&#xD;                    &lt;option&gt;this block&lt;/option&gt;&#xD;                  &lt;/l&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/script&gt;&#xD;              &lt;list&gt;&lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="doChangeVar"&gt;&#xD;              &lt;l&gt;i&lt;/l&gt;&#xD;              &lt;l&gt;1&lt;/l&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/script&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;block s="doIf"&gt;&#xD;          &lt;block s="reportNot"&gt;&#xD;            &lt;block var="found"/&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;script&gt;&#xD;            &lt;block s="doAddToList"&gt;&#xD;              &lt;block var="pkg"/&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;1&lt;/l&gt;&#xD;                  &lt;block var="📦"/&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/script&gt;&#xD;          &lt;list&gt;&lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;block s="doAddToList"&gt;&#xD;          &lt;block s="reportJoinWords"&gt;&#xD;            &lt;list&gt;&#xD;              &lt;l&gt;Done in &lt;/l&gt;&#xD;              &lt;block s="reportJoinWords"&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;block s="reportDifference"&gt;&#xD;                    &lt;block s="reportDate"&gt;&#xD;                      &lt;l&gt;&#xD;                        &lt;option&gt;time in milliseconds&lt;/option&gt;&#xD;                      &lt;/l&gt;&#xD;                    &lt;/block&gt;&#xD;                    &lt;block var="start_time"/&gt;&#xD;                  &lt;/block&gt;&#xD;                  &lt;l&gt; ms&lt;/l&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="reportApplyExtension"&gt;&#xD;            &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;            &lt;list&gt;&#xD;              &lt;l&gt;📦log&lt;/l&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/script&gt;&#xD;      &lt;script x="488" y="118.70000000000005"&gt;&#xD;        &lt;block s="doAddToList"&gt;&#xD;          &lt;block s="reportJoinWords"&gt;&#xD;            &lt;list&gt;&#xD;              &lt;l&gt;Update available! Installing &lt;/l&gt;&#xD;              &lt;block var="pkg_name"/&gt;&#xD;              &lt;l&gt; vers &lt;/l&gt;&#xD;              &lt;block var="pkg_version"/&gt;&#xD;              &lt;l&gt; by &lt;/l&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;1&lt;/l&gt;&#xD;                  &lt;block var="pkg_author"/&
+gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="reportApplyExtension"&gt;&#xD;            &lt;l&gt;var_get(name)&lt;/l&gt;&#xD;            &lt;list&gt;&#xD;              &lt;l&gt;📦log&lt;/l&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/script&gt;&#xD;      &lt;comment x="377" y="27.700000000000045" w="193" collapsed="false"&gt;Imports a package to the project without adding it to the package manager&lt;/comment&gt;&#xD;    &lt;/scripts&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="📦Remove package from %&amp;apos;type&amp;apos; %&amp;apos;URL&amp;apos;" type="command" category="Snapkg"&gt;&#xD;    &lt;comment x="0" y="0" w="90" collapsed="false"&gt;Removes a package from the package manager without removing it from the project.&lt;/comment&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s" readonly="true"&gt;URL&lt;options&gt;URL&amp;#xD;JSON&lt;/options&gt;&#xD;      &lt;/input&gt;&#xD;      &lt;input type="%s"&gt;&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="📦Delete package from %&amp;apos;type&amp;apos; %&amp;apos;pkg&amp;apos;" type="command" category="Snapkg"&gt;&#xD;    &lt;comment x="0" y="0" w="421.2789062500001" collapsed="false"&gt;Deletes the components of a package from the current project. Does not remove the package from the package manager.&lt;/comment&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s" readonly="true"&gt;URL&lt;options&gt;URL&amp;#xD;JSON&lt;/options&gt;&#xD;      &lt;/input&gt;&#xD;      &lt;input type="%s"&gt;&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doDeclareVariables"&gt;&#xD;        &lt;list&gt;&#xD;          &lt;l&gt;b&lt;/l&gt;&#xD;        &lt;/list&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doForEach"&gt;&#xD;        &lt;l&gt;item&lt;/l&gt;&#xD;        &lt;block s="reportListItem"&gt;&#xD;          &lt;l&gt;2&lt;/l&gt;&#xD;          &lt;block s="reportListItem"&gt;&#xD;            &lt;l&gt;2&lt;/l&gt;&#xD;            &lt;block s="reportListItem"&gt;&#xD;              &lt;l&gt;1&lt;/l&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;4&lt;/l&gt;&#xD;                  &lt;block var="pkg"/&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doRun"&gt;&#xD;            &lt;block s="reportJSFunction"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;blocks&lt;/l&gt;&#xD;                &lt;l&gt;spec&lt;/l&gt;&#xD;                &lt;l&gt;type&lt;/l&gt;&#xD;                &lt;l&gt;category&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;              &lt;l&gt;function decodeEntities(encodedString) {&amp;#xD;  const parser = new DOMParser();&amp;#xD;  const dom = parser.parseFromString(&amp;apos;&amp;lt;!doctype html&amp;gt;&amp;lt;body&amp;gt;&amp;apos; + encodedString, &amp;apos;text/html&amp;apos;);&amp;#xD;  const decodedString = dom.body.textContent;&amp;#xD;  return decodedString;&amp;#xD;}&amp;#xD;&amp;#xD;spec = decodeEntities(spec);&amp;#xD;&amp;#xD;results = (blocks.contents.filter((block) =&amp;gt; {&amp;#xD;  if(!block.expression.definition) return false;&amp;#xD;  return (&amp;#xD;    block.expression.definition.spec === spec &amp;amp;&amp;amp;&amp;#xD;    block.expression.category === category&amp;#xD;    //TODO: Add block type&amp;#xD;  );&amp;#xD;}));&amp;#xD;&amp;#xD;this.parentThatIsA(IDE_Morph).stage.threads.processes[0].doDeleteBlock(results[0]);&lt;/l&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;list&gt;&#xD;              &lt;block s="reportGet"&gt;&#xD;                &lt;l&gt;&#xD;                  &lt;option&gt;blocks&lt;/option&gt;&#xD;                &lt;/l&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;1&lt;/l&gt;&#xD;                  &lt;block var="item"/&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;2&lt;/l&gt;&#xD;                  &lt;block var="item"/&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;block s="reportListItem"&gt;&#xD;                &lt;l&gt;2&lt;/l&gt;&#xD;                &lt;block s="reportListItem"&gt;&#xD;                  &lt;l&gt;3&lt;/l&gt;&#xD;                  &lt;block var="item"/&gt;&#xD;                &lt;/block&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="=== Developers $arrowDown ===" type="reporter" category="Snapkg"&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&lt;/inputs&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="📦Initialize" type="command" category="Snapkg"&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doIf"&gt;&#xD;        &lt;block s="reportNot"&gt;&#xD;          &lt;block s="reportListContainsItem"&gt;&#xD;            &lt;block s="reportApplyExtension"&gt;&#xD;              &lt;l&gt;var_names(scope)&lt;/l&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;global&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;l&gt;📦&lt;/l&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doApplyExtension"&gt;&#xD;            &lt;l&gt;var_declare(scope, name)&lt;/l&gt;&#xD;            &lt;list&gt;&#xD;              &lt;l&gt;global&lt;/l&gt;&#xD;              &lt;l&gt;📦&lt;/l&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="doApplyExtension"&gt;&#xD;            &lt;l&gt;var_set(name, val)&lt;/l&gt;&#xD;            &lt;list&gt;&#xD;              &lt;l&gt;📦&lt;/l&gt;&#xD;              &lt;block s="reportNewList"&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;block s="reportNewList"&gt;&#xD;                    &lt;list&gt;&#xD;                      &lt;l&gt;installed&lt;/l&gt;&#xD;                      &lt;block s="reportNewList"&gt;&#xD;                        &lt;list&gt;&lt;/list&gt;&#xD;                      &lt;/block&gt;&#xD;                    &lt;/list&gt;&#xD;                  &lt;/block&gt;&#xD;                  &lt;block s="reportNewList"&gt;&#xD;                    &lt;list&gt;&#xD;                      &lt;l&gt;repositories&lt;/l&gt;&#xD;                      &lt;block s="reportNewList"&gt;&#xD;                        &lt;list&gt;&lt;/list&gt;&#xD;                      &lt;/block&gt;&#xD;                    &lt;/list&gt;&#xD;                  &lt;/block&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;        &lt;list&gt;&lt;/list&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doIf"&gt;&#xD;        &lt;block s="reportNot"&gt;&#xD;          &lt;block s="reportListContainsItem"&gt;&#xD;            &lt;block s="reportApplyExtension"&gt;&#xD;              &lt;l&gt;var_names(scope)&lt;/l&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;global&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;l&gt;📦log&lt;/l&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/block&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doApplyExtension"&gt;&#xD;            &lt;l&gt;var_declare(scope, name)&lt;/l&gt;&#xD;            &lt;list&gt;&#xD;              &lt;l&gt;global&lt;/l&gt;&#xD;              &lt;l&gt;📦log&lt;/l&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;          &lt;block s="doApplyExtension"&gt;&#xD;            &lt;l&gt;var_set(name, val)&lt;/l&gt;&#xD;            &lt;list&gt;&#xD;              &lt;l&gt;📦log&lt;/l&gt;&#xD;              &lt;block s="reportNewList"&gt;&#xD;                &lt;list&gt;&lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/list&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;        &lt;list&gt;&lt;/list&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="Source %&amp;apos;url&amp;apos; provides: %&amp;apos;blocks&amp;apos;" type="reporter" category="Snapkg"&gt;&#xD;    &lt;variables&gt;&#xD;      &lt;list struct="atomic" id="1145"&gt;block_list&lt;/list&gt;&#xD;    &lt;/variables&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s"&gt;https://raw.githubusercontent.com/elfin8er/Snapkg/development/repositories/default/packages/snapkg/blocks/Snapkg/blocks.xml&lt;/input&gt;&#xD;      &lt;input type="%mult%cmdRing"&gt;&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;
+&#xD;      &lt;block s="doSetVar"&gt;&#xD;        &lt;l&gt;block_list&lt;/l&gt;&#xD;        &lt;block s="reportNewList"&gt;&#xD;          &lt;list&gt;&lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doForEach"&gt;&#xD;        &lt;l&gt;block&lt;/l&gt;&#xD;        &lt;block var="blocks"/&gt;&#xD;        &lt;script&gt;&#xD;          &lt;block s="doAddToList"&gt;&#xD;            &lt;custom-block s="Block spec: %s , category: %s"&gt;&#xD;              &lt;block s="evaluate"&gt;&#xD;                &lt;block s="reportJSFunction"&gt;&#xD;                  &lt;list&gt;&#xD;                    &lt;l&gt;block&lt;/l&gt;&#xD;                  &lt;/list&gt;&#xD;                  &lt;l&gt;console.log(block);&amp;#xD;return block.expression.definition.spec;&lt;/l&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;block var="block"/&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;              &lt;block s="evaluate"&gt;&#xD;                &lt;block s="reportJSFunction"&gt;&#xD;                  &lt;list&gt;&#xD;                    &lt;l&gt;block&lt;/l&gt;&#xD;                  &lt;/list&gt;&#xD;                  &lt;l&gt;return block.expression.definition.category;&lt;/l&gt;&#xD;                &lt;/block&gt;&#xD;                &lt;list&gt;&#xD;                  &lt;block var="block"/&gt;&#xD;                &lt;/list&gt;&#xD;              &lt;/block&gt;&#xD;            &lt;/custom-block&gt;&#xD;            &lt;block var="block_list"/&gt;&#xD;          &lt;/block&gt;&#xD;        &lt;/script&gt;&#xD;      &lt;/block&gt;&#xD;      &lt;block s="doReport"&gt;&#xD;        &lt;block s="reportNewList"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;url&lt;/l&gt;&#xD;                &lt;block var="url"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;provides&lt;/l&gt;&#xD;                &lt;block var="block_list"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;    &lt;scripts&gt;&#xD;      &lt;script x="405.7964843750001" y="348.7999999999998"&gt;&#xD;        &lt;block s="reportNewList"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;&lt;/l&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/script&gt;&#xD;    &lt;/scripts&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="Package %&amp;apos;name&amp;apos; , vers: %&amp;apos;version&amp;apos; , authors: %&amp;apos;authors&amp;apos; , sources: %&amp;apos;sources&amp;apos; , schema %&amp;apos;schema&amp;apos;" type="reporter" category="Snapkg"&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%txt"&gt;snapkg&lt;/input&gt;&#xD;      &lt;input type="%n"&gt;0.11&lt;/input&gt;&#xD;      &lt;input type="%l"&gt;&lt;/input&gt;&#xD;      &lt;input type="%l"&gt;&lt;/input&gt;&#xD;      &lt;input type="%n" readonly="true"&gt;0.1&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doReport"&gt;&#xD;        &lt;block s="reportNewList"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;schema&lt;/l&gt;&#xD;                &lt;block var="schema"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;name&lt;/l&gt;&#xD;                &lt;block var="name"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;version&lt;/l&gt;&#xD;                &lt;block var="version"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;authors&lt;/l&gt;&#xD;                &lt;block var="authors"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;sources&lt;/l&gt;&#xD;                &lt;block var="sources"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="Author %&amp;apos;name&amp;apos; ( %&amp;apos;username&amp;apos; ) : %&amp;apos;URL&amp;apos;" type="reporter" category="Snapkg"&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s"&gt;&lt;/input&gt;&#xD;      &lt;input type="%s"&gt;&lt;/input&gt;&#xD;      &lt;input type="%s"&gt;&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doReport"&gt;&#xD;        &lt;block s="reportNewList"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;name&lt;/l&gt;&#xD;                &lt;block var="name"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;username&lt;/l&gt;&#xD;                &lt;block var="username"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;url&lt;/l&gt;&#xD;                &lt;block var="URL"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="Block spec: %&amp;apos;spec&amp;apos; , category: %&amp;apos;category&amp;apos;" type="reporter" category="Snapkg"&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s"&gt;&lt;/input&gt;&#xD;      &lt;input type="%s"&gt;&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doReport"&gt;&#xD;        &lt;block s="reportNewList"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;spec&lt;/l&gt;&#xD;                &lt;block var="spec"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;category&lt;/l&gt;&#xD;                &lt;block var="category"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;  &lt;/block-definition&gt;&#xD;  &lt;block-definition s="Repo %&amp;apos;name&amp;apos; vers %&amp;apos;vers&amp;apos; %&amp;apos;url&amp;apos; %&amp;apos;schema&amp;apos; %&amp;apos;packages&amp;apos;" type="reporter" category="Snapkg"&gt;&#xD;    &lt;header&gt;&lt;/header&gt;&#xD;    &lt;code&gt;&lt;/code&gt;&#xD;    &lt;translations&gt;&lt;/translations&gt;&#xD;    &lt;inputs&gt;&#xD;      &lt;input type="%s"&gt;Snapkg&lt;/input&gt;&#xD;      &lt;input type="%n"&gt;1&lt;/input&gt;&#xD;      &lt;input type="%txt"&gt;https://raw.githubusercontent.com/elfin8er/Snapkg/development/repositories/default/index.json&lt;/input&gt;&#xD;      &lt;input type="%n" readonly="true"&gt;0.1&lt;/input&gt;&#xD;      &lt;input type="%s"&gt;&lt;/input&gt;&#xD;    &lt;/inputs&gt;&#xD;    &lt;script&gt;&#xD;      &lt;block s="doReport"&gt;&#xD;        &lt;block s="reportNewList"&gt;&#xD;          &lt;list&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;schema&lt;/l&gt;&#xD;                &lt;block var="schema"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;name&lt;/l&gt;&#xD;                &lt;block var="name"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;version&lt;/l&gt;&#xD;                &lt;block var="vers"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;url&lt;/l&gt;&#xD;                &lt;block var="url"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;            &lt;block s="reportNewList"&gt;&#xD;              &lt;list&gt;&#xD;                &lt;l&gt;packages&lt;/l&gt;&#xD;                &lt;block var="packages"/&gt;&#xD;              &lt;/list&gt;&#xD;            &lt;/block&gt;&#xD;          &lt;/list&gt;&#xD;        &lt;/block&gt;&#xD;      &lt;/block&gt;&#xD;    &lt;/script&gt;&#xD;    &lt;scripts&gt;&#xD;      &lt;script x="335.6441406250001" y="207.33333333333326"&gt;&#xD;        &lt;block var="url"/&gt;&#xD;      &lt;/script&gt;&#xD;    &lt;/scripts&gt;&#xD;  &lt;/block-definition&gt;&#xD;&lt;/blocks&gt;</l>
+				</variable>
+			</variables>
+		</custom-block>
+	</script>
+</
+script>
