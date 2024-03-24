@@ -61,7 +61,7 @@ If you decide later that you no longer need a package that you installed, you ca
 
 There are several ways to contribute to the Snapkg project, but before we get in, there are a few general guidelines that should be followed.
 
-* You *must* be the sole owner of any submissions
+* You *must* have the rights to publish your submissions
 
 * Javascript blocks should not exist in the "default" repository due to their security concerns.
 
